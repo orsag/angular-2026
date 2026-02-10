@@ -1,0 +1,38 @@
+<!-- <h4>Services and Dependency injection</h4> -->
+<!-- <div align="center">
+    @if(isEligible){
+    <h4 class="text-success">You are eligible for a premium subscription!</h4>
+    }@else{
+    <h4 class="text-danger">You are not eligible for a premium subscription!</h4>
+    }
+    <h2>User Name : {{dummyData.name}}</h2>
+</div> -->
+
+<section class="d-flex flex-column justify-content-center align-items-center pt-4">
+    <h4>One Way Data Binding</h4>
+    <div>
+        <p>1. Interpolation</p>
+        <p><b>{{topic}}</b> from {{name}}</p>
+    </div>
+    <div>
+        <p>2. Property Binding</p>
+        <input type="text" name="" id="" [value]="topic"> <br> <br>
+        <img class="img-fluid img-thumbnail" [src]="image" alt="slovakian-flag">
+    </div>
+    <div>
+        <p>3. Event Binding</p>
+        <button (click)="onSave()">Save</button> &nbsp;
+        <select (change)="onChange()">
+            <option value="Country">Country</option>
+            <option value="India">India</option>
+            <option value="Germany">Germany</option>
+            <option value="France">France</option>
+            <option value="Spain">Spain</option>
+        </select>
+    </div>
+    <h4>Two Way Data Binding</h4>
+    <div>
+        <input type="text" [(ngModel)]="randomText"> <br> <br>
+        {{randomText}}
+    </div>
+</section>

@@ -1,0 +1,14 @@
+<div class="container text-center">
+    <div class="text-info">
+        <h2>Sibling2 Component</h2>
+    </div>
+    <div class="text-warning m-3">
+        <h4>{{sigbling2Property}}</h4>
+    </div>
+    <div class="m-3">
+        <input type="text" #sibling2>
+        <button class="btn btn-success btn-sm m-3" (click)="onSend(sibling2.value)">
+            Send
+        </button>
+    </div>
+</div>
