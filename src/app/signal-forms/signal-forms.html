@@ -1,28 +1,60 @@
-<form (submit)="onSubmit($event)">
-    <div>
-        <label for="">Email</label>
-        <input type="email" placeholder="Enter email" [formField]="loginForm.email">
-        @if(loginForm.email().touched() && loginForm.email().invalid()){
-        <ul>
-            @for(error of loginForm.email().errors(); track error.message){
-            <li>{{ error.message }}</li>
-            }
-        </ul>
-        }
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4 text-center">Login</h3>
+
+                    <form (submit)="onSubmit($event)">
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="name@example.com"
+                                [formField]="loginForm.email">
+
+                            @if(loginForm.email().touched() && loginForm.email().invalid()){
+                            <div class="text-danger small mt-1">
+                                <ul class="list-unstyled mb-0">
+                                    @for(error of loginForm.email().errors(); track error.message){
+                                    <li><i class="bi bi-exclamation-circle me-1"></i>{{ error.message }}</li>
+                                    }
+                                </ul>
+                            </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Enter password"
+                                [formField]="loginForm.password">
+
+                            @if(loginForm.password().touched() && loginForm.password().invalid()){
+                            <div class="text-danger small mt-1">
+                                <ul class="list-unstyled mb-0">
+                                    @for(error of loginForm.password().errors(); track error.message){
+                                    <li><i class="bi bi-exclamation-circle me-1"></i>{{ error.message }}</li>
+                                    }
+                                </ul>
+                            </div>
+                            }
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary" [disabled]="loginForm().invalid()">
+                                Login
+                            </button>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
+                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                (click)="setForm()">Set</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                (click)="resetForm()">Reset</button>
+                            <button type="button" class="btn btn-sm btn-outline-info"
+                                (click)="updateEmail('testing@gmail.com')">Update Email</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="">Password</label>
-        <input type="password" placeholder="Enter password" [formField]="loginForm.password">
-        @if(loginForm.password().touched() && loginForm.password().invalid()){
-        <ul>
-            @for(error of loginForm.password().errors(); track error.message){
-            <li>{{ error.message }}</li>
-            }
-        </ul>
-        }
-    </div>
-    <button type="submit" [disabled]="loginForm().invalid()">Login</button>
-    <button type="button" (click)="setForm()">Set</button>
-    <button type="button" (click)="resetForm()">Reset</button>
-    <button type="button" (click)="updateEmail('testing@gmail.com')">Update Email</button>
-</form>
+</div>

@@ -33,4 +33,35 @@
         }
         }
     </div>
+
+    <div class="m-3">
+        @switch(status()){
+        @case('hidden')
+        @case('draft'){
+        <p>Your document is not yet published</p>
+        }
+        @case('pending'){
+        <p>Your document is pending</p>
+        }
+        @case('published'){
+        <p>Your document is live</p>
+        }
+        @default{
+        <p>Unknown status</p>
+        }
+        }
+    </div>
+
+    <div class="col-12 m-3">
+        <h3>Spread operator inside templates</h3>
+    </div>
+    <div class="m-3">
+        @let allNotes = [...listTodos()];
+        <ul>
+            @for(note of allNotes; track note.id){
+            <li>{{ note.id }} {{ note.title }}</li>
+            }
+        </ul>
+
+    </div>
 </div>
