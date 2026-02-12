@@ -1,99 +1,121 @@
-<div class="d-flex flex-column vh-100">
-    <nav class="navbar navbar-expand-lg bg-body-secondary">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" routerLink="user">User</a>
-                    </li>
+<main class="d-flex flex-nowrap">
+    <div class="flex-shrink-0 p-3 text-bg-dark vh-100" style="width: 280px" data-bs-theme="dark">
+        <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+            <svg class="bi pe-none me-2" width="30" height="24" aria-hidden="true">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+            <span class="fs-5 fw-semibold">Collapsible</span>
+        </a>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                    Home
+                </button>
+                <div class="collapse show" id="home-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li>
+                            <a routerLinkActive="active" routerLink="user"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">User</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" routerLink="profile"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Profile</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" routerLink="/data-binding"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Data-Binding</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                    Directives
+                </button>
+                <div class="collapse" id="dashboard-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li>
+                            <a routerLinkActive="active" routerLink="/structural-directive"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Structural
+                                Directive</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" routerLink="/attribute-directive"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Attribute
+                                Directive</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" [routerLink]="['built-in-pipes']"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Built-in-Pipes</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" [routerLink]="['employees']"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Employees</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                    Signals
+                </button>
+                <div class="collapse" id="orders-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li>
+                            <a routerLinkActive="active" routerLink="/signalforms"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Signal forms</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" routerLink="/signalstore"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Signal store</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" routerLink="/storage"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Storage</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" [routerLink]="['crud']"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Crud ops</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" [routerLink]="['resourceapi']"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Resource API</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                    Forms
+                </button>
+                <div class="collapse" id="account-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li>
+                            <a routerLinkActive="active" [routerLink]="['parent']"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Parent</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" routerLink="/tdf"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Template
+                                driven</a>
+                        </li>
+                        <li>
+                            <a routerLinkActive="active" routerLink="/rf"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reactive</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" routerLink="profile">Profile</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" routerLink="/data-binding">Data-Binding</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Directives
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" routerLinkActive="active"
-                                    routerLink="/structural-directive">Structural Directive</a></li>
-                            <li><a class="dropdown-item" routerLinkActive="active"
-                                    routerLink="/attribute-directive">Attribute-Directive</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active"
-                            [routerLink]="['built-in-pipes']">Built-in-Pipes</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Forms
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/tdf">TDF</a></li>
-                            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/rf">Reactive Form</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Signals
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/signalforms">Signal
-                                    forms</a>
-                            </li>
-                            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/signalstore">Signal
-                                    store</a>
-                            </li>
-                            <li><a class="dropdown-item" routerLinkActive="active" routerLink="/storage">Storage</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" [routerLink]="['crud']">CRUD Operations</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" [routerLink]="['resourceapi']">Resource API</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" [routerLink]="['parent']">Parent</a>
-                    </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['employees']">Employees</a>
-                  </li>
-
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                        name="search" id="navbar-search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <main class="container flex-column flex-grow-1">
+    <!-- Main content page -->
+    <main class="flex-column flex-grow-1">
         <router-outlet></router-outlet>
     </main>
-</div>
+</main>
