@@ -1099,6 +1099,13 @@
     "@emnapi/runtime" "^1.7.1"
     "@tybys/wasm-util" "^0.10.1"
 
+"@ngrx/operators@^21.0.1":
+  version "21.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/operators/-/operators-21.0.1.tgz#4ced5db643d6c887af552e94e48f7c7e5b71bf20"
+  integrity sha512-CfSh9MzQoIjbipSJ4q1+ZhcY537I5th4hNdNiWHu/egx2+SgFUZlOcQ6E9c+DJMsVkYOoIYhKX1E/bYlFBqXJw==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngrx/signals@^21.0.1":
   version "21.0.1"
   resolved "https://registry.yarnpkg.com/@ngrx/signals/-/signals-21.0.1.tgz#d20a395b657f62a9c174c8d7cf240fbdce51bc75"

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { UserPlaceholder } from '../user';
+import {Employee} from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,6 @@ export class SharedData {
   }
 
   getUserData() {
-    return this._http.get<UserPlaceholder[]>(this.API_URL);
+    return this._http.get<Employee[]>(this.API_URL);
   }
 }

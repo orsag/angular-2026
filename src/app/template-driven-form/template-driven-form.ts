@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { User } from '../user';
+import { User } from '../types';
 
 @Component({
   selector: 'app-template-driven-form',

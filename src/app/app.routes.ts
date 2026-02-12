@@ -14,6 +14,7 @@ import { UpdateUser } from './update-user/update-user';
 import { ViewUser } from './view-user/view-user';
 import { ResourceApi } from './resource-api/resource-api';
 import { Parent } from './parent/parent';
+import { Employees } from './employees/employees';
 // import { ReusableComponent } from './reusable/reusable.component';
 import { Storage } from './storage/storage';
 import { SignalForms } from './signal-forms/signal-forms';
@@ -40,5 +41,6 @@ export const routes: Routes = [
   { path: 'storage', component: Storage },
   { path: 'signalforms', component: SignalForms },
   { path: 'signalstore', component: SignalStore },
+  { path: 'employees', component: Employees },
   { path: '**', component: PageNotFound },
 ];
