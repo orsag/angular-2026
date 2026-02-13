@@ -1,0 +1,137 @@
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white py-3">
+        <h5 class="card-title mb-0"><i class="bi bi-geo-alt me-2"></i>Location Details</h5>
+    </div>
+    <div class="card-body p-4">
+        <form (submit)="onSubmit($event)">
+            <input type="hidden" name="lat">
+            <input type="hidden" name="lng">
+
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label class="form-label fw-semibold">Street</label>
+                    <input type="text" class="form-control" placeholder="123 Main St" [formField]="addressForm.street"
+                           [class.is-invalid]="addressForm.street().invalid() && addressForm.street().touched()">
+                    @if(addressForm.street().invalid() && addressForm.street().touched()) {
+                      <div class="invalid-feedback d-block">
+                        @for(error of addressForm.street().errors(); track error.message) {
+                          <div>{{ error.message }}</div>
+                        }
+                      </div>
+                    }
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Suite / Apt</label>
+                    <input type="text" class="form-control" placeholder="Apt 4B" [formField]="addressForm.suite"
+                           [class.is-invalid]="addressForm.suite().invalid() && addressForm.suite().touched()">
+                    @if(addressForm.suite().invalid() && addressForm.suite().touched()) {
+                      <div class="invalid-feedback d-block">
+                        @for(error of addressForm.suite().errors(); track error.message) {
+                          <div>{{ error.message }}</div>
+                        }
+                      </div>
+                    }
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">City</label>
+                    <input type="text" class="form-control" placeholder="Bratislava" [formField]="addressForm.city"
+                           [class.is-invalid]="addressForm.city().invalid() && addressForm.city().touched()">
+                    @if(addressForm.city().invalid() && addressForm.city().touched()) {
+                      <div class="invalid-feedback d-block">
+                        @for(error of addressForm.city().errors(); track error.message) {
+                          <div>{{ error.message }}</div>
+                        }
+                      </div>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Zip Code</label>
+                    <input type="text" class="form-control" placeholder="10001" [formField]="addressForm.zipcode"
+                           [class.is-invalid]="addressForm.zipcode().invalid() && addressForm.zipcode().touched()">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Country</label>
+                    <input type="text" class="form-control" placeholder="United States" [formField]="addressForm.country"
+                           [class.is-invalid]="addressForm.country().invalid() && addressForm.country().touched()">
+                    @if(addressForm.country().invalid() && addressForm.country().touched()) {
+                      <div class="invalid-feedback d-block">
+                        @for(error of addressForm.country().errors(); track error.message) {
+                          <div>{{ error.message }}</div>
+                        }
+                      </div>
+                    }
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Region</label>
+                    <select class="form-select" [formField]="addressForm.region">
+                        <option selected disabled>Choose...</option>
+                        <option value="Africa">Africa</option>
+                        <option value="America">America</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Europe">Europe</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Currency</label>
+                    <input type="text" class="form-control" placeholder="USD" [formField]="addressForm.currency"
+                           [class.is-invalid]="addressForm.currency().invalid() && addressForm.currency().touched()">
+                    @if(addressForm.currency().invalid() && addressForm.currency().touched()) {
+                      <div class="invalid-feedback d-block">
+                        @for(error of addressForm.currency().errors(); track error.message) {
+                          <div>{{ error.message }}</div>
+                        }
+                      </div>
+                    }
+                </div>
+            </div>
+
+            <hr class="my-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="gap-2 d-flex">
+                    <button type="submit" class="btn btn-primary px-4" [disabled]="addressForm().invalid()">
+                        <i class="bi bi-check-lg me-1"></i> Submit
+                    </button>
+                    <button type="reset" class="btn btn-outline-danger" (click)="onReset()">
+                        Reset
+                    </button>
+                </div>
+
+                <button type="button" class="btn btn-outline-secondary" (click)="onAutofill()">
+                    <i class="bi bi-magic me-1"></i> Autofill
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false" #confirmModal>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Confirm Save</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to save this address?</p>
+        <div class="p-3 bg-light rounded border">
+          <strong>{{ addressModel().street }}</strong><br>
+          {{ addressModel().city }}, {{ addressModel().zipcode }}<br>
+          <small class="text-muted">{{ addressModel().region }}</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="processSave()" data-bs-dismiss="modal">
+          Confirm & Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

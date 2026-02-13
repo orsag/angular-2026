@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { User } from './user/user';
+import { Address } from './address/address';
 import { DataBinding } from './data-binding/data-binding';
 import { StructuralIf } from './structural-if/structural-if';
 import { AttributeDirectives } from './attribute-directives/attribute-directives';
@@ -42,5 +43,6 @@ export const routes: Routes = [
   { path: 'signalforms', component: SignalForms },
   { path: 'signalstore', component: SignalStore },
   { path: 'employees', component: Employees },
+  { path: 'address', component: Address },
   { path: '**', component: PageNotFound },
 ];

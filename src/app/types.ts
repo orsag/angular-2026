@@ -18,12 +18,15 @@ export interface UserPlaceholder {
 }
 
 // {"street":"123 Main Street","suite":"Apt. 4","city":"Anytown","zipcode":"12345-6789","geo":{"lat":"42.1234","lng":"-71.2345"}}
-export interface Address {
+export interface IAddress {
   street: string;
   suite: string;
   city: string;
   zipcode: string;
-  geo: {lat: string, lng: string};
+  country: string;
+  region: string; //'Europe' | 'Asia' | 'Australia' | 'Africa';
+  currency: string;
+  geo: { lat: string; lng: string };
 }
 
 // {"name":"ABC Company","catchPhrase":"Innovative solutions for all your needs","bs":"Marketing"}}
@@ -38,7 +41,7 @@ export interface Employee {
   name: string;
   username: string;
   email: string;
-  address: Address;
+  address: IAddress;
   phone: string;
   website: string;
   company: Company;
