@@ -2,12 +2,15 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import { inject, computed } from '@angular/core';
 import { SharedData as SharedDataService } from '../Services/shared-data';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { Employee } from '../types';
 
 type EmployeeStoreState = {
-  refreshTrigger: number,
+  refreshTrigger: number;
   theme: 'dark' | 'light';
   mode: 'view' | 'edit';
   filter: { query: string; order: 'asc' | 'desc' };
+  employees?: Employee[];
+  isLoading?: boolean;
 };
 
 const initialState: EmployeeStoreState = {
@@ -45,7 +48,7 @@ export const EmployeeStoreStore = signalStore(
     // 3. Now the refresh method just tells the resource to reload
     refreshEmployees() {
       patchState(store, (state) => ({
-        refreshTrigger: state.refreshTrigger + 1
+        refreshTrigger: state.refreshTrigger + 1,
       }));
     },
   })),

@@ -4,15 +4,18 @@ import { of } from 'rxjs';
 import { CustomPipe } from '../Pipes/custom-pipe';
 import { PurePipe } from '../Pipes/pure-pipe';
 import { ImpurePipe } from '../Pipes/impure-pipe';
+import { CustomDatePipe } from '../Pipes/custom-date-pipe';
 
 @Component({
   selector: 'app-built-pipes',
-  imports: [CommonModule, CustomPipe, PurePipe, ImpurePipe],
+  imports: [CommonModule, CustomPipe, PurePipe, ImpurePipe, CustomDatePipe],
   templateUrl: './built-pipes.html',
   styleUrl: './built-pipes.scss',
 })
 export class BuiltPipes {
-  mobileNumber: any = null;
+  mobileNumber: any = '0949 131 158';
+  // COMMAND TO CREATE CUSTOM PIPE
+  //  ng generate pipe /Pipes/custom-date
 
   angularPipes: string = 'use pipes to format data in angular templates';
   personData = {
