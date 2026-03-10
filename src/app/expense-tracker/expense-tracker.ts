@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, linkedSignal } from '@angular/core';
 import { TransactionService } from '../Services/transaction-service';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 
@@ -15,6 +15,11 @@ export class ExpenseTracker {
   totalBalance = this.service.balance;
   totalIncome = this.service.income;
   totalExpense = this.service.expense;
+
+  warning = linkedSignal({
+    source: this.totalBalance,
+    computation: () => (this.totalBalance() < 1000 ? 'Dangerously low balance' : 'Good amount'),
+  });
 
   removeTransaction(id: number) {
     this.service.remove(id);

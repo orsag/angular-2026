@@ -57,4 +57,11 @@ export const MOCK_TRANSACTIONS: TransactionModel[] = [
     date: new Date('2026-03-10'),
     type: 'expense',
   },
+  {
+    id: 9,
+    description: 'Festival in czechia',
+    amount: 900.0,
+    date: new Date('2026-03-11'),
+    type: 'expense',
+  },
 ];

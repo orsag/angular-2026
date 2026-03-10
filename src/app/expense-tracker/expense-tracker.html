@@ -5,6 +5,7 @@
     <div class="card-body text-center">
       <h6 class="text-uppercase small fw-bold">Total Balance</h6>
       <h2 class="display-6 fw-bold mb-0">{{ totalBalance() | currency:'EUR' }}</h2>
+      <small>{{ warning() }}</small>
     </div>
   </div>
 

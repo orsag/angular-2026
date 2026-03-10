@@ -38,7 +38,6 @@ export class TransactionService {
 
   remove(idSelected: number) {
     this._transactions.update((list) => list.filter((t) => t.id !== idSelected));
-    console.log(this.transactions());
   }
 
   reloadData() {

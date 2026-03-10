@@ -57,3 +57,12 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Assessing performance in a modern Angular application
+
+1. Angular DevTools
+   The Profiler Tab: You can record an interaction (like adding or removing a transaction). It will show you exactly which components were re-rendered.
+2. Core Web Vitals (Lighthouse)
+   Inside your browser's Developer Tools, go to the Lighthouse tab. This gives you a high-level score on:
+   LCP (Largest Contentful Paint): How long it takes for the main content (your summary panel) to appear.
+   CLS (Cumulative Layout Shift): Does the screen "jump" when the list finally loads? (Signals help prevent this by managing state predictably).
