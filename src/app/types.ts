@@ -1,9 +1,18 @@
-export interface User {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  pass?: any;
-  isCheck?: boolean;
+export interface NewUser {
+  user_id: number;
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface SingleUser {
+  address: any;
+  email: string;
+  id: number;
+  name: any;
+  password: string;
+  phone: string;
+  username: string;
 }
 
 export interface UserPlaceholder {

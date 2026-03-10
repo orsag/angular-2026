@@ -1,6 +1,21 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { User } from '../types';
+
+interface LocalUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  pass: number;
+  isCheck: boolean;
+}
+
+const DEFAULT = {
+  firstName: 'Rahul',
+  lastName: 'Verma',
+  email: 'rahul@gmail.com',
+  pass: 12345,
+  isCheck: true,
+};
 
 @Component({
   selector: 'app-template-driven-form',
@@ -9,31 +24,24 @@ import { User } from '../types';
   styleUrl: './template-driven-form.scss',
 })
 export class TemplateDrivenForm {
-  userObject: User = {};
+  userObject: LocalUser;
+
+  constructor() {
+    this.userObject = { ...DEFAULT };
+  }
 
   onSubmit(userForm: NgForm) {
     console.log(userForm.value);
   }
 
   ngOnInit(): void {
-    // this.userObject = {
-    //   firstName : "Rahul",
-    //   lastName : "Verma",
-    //   email : "rahul@gmail.com",
-    //   pass : 12345,
-    //   isCheck : true,
-    // }
+    this.userObject = {
+      ...DEFAULT,
+    };
   }
 
   setValues(userForm: NgForm) {
-    let obj = {
-      firstName: 'Rahul',
-      lastName: 'Verma',
-      email: 'rahul@gmail.com',
-      pass: 12345,
-      isCheck: true,
-    };
-    userForm.setValue(obj);
+    userForm.setValue({ ...DEFAULT });
   }
 
   patchValues(userForm: NgForm) {
