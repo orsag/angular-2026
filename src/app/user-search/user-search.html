@@ -1,0 +1,71 @@
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title mb-4">User Management</h3>
+
+            <div class="mb-3">
+                <label for="userSearch" class="form-label fw-bold">Search Users</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                    <input type="text" id="userSearch" class="form-control" placeholder="Type a username..."
+                        [value]="query()" (input)="query.set($any($event.target).value)">
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mb-4">
+                <button (click)="users.reload()" type="button" class="btn btn-outline-primary flex-grow-1">
+                    Reload
+                </button>
+                <button type="button" class="btn btn-success flex-grow-1">
+                    Add User
+                </button>
+                <button (click)="query.set('')" type="button" class="btn btn-outline-secondary flex-grow-1">
+                    Clear
+                </button>
+            </div>
+
+            <hr>
+
+            <div class="user-list">
+                <h5 class="mb-3">Results</h5>
+
+                @if (users.isLoading()) {
+                <div class="d-flex justify-content-center my-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                }
+
+                <ul class="list-group list-group-flush">
+                    @for (user of users.value(); track user.id) {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 text-secondary fw-bold" style="width: 60px;">
+                                ID: {{ user.id }}
+                            </div>
+
+                            <div class="flex-grow-1 text-truncate fw-semibold">
+                                {{ user.name }}
+                            </div>
+                        </div>
+                        <!-- <button class="btn btn-sm btn-link text-danger p-0">Delete</button> -->
+                    </li>
+                    } @empty {
+                    @if (!users.isLoading()) {
+                    <li class="list-group-item text-center text-muted py-4">
+                        No users found.
+                    </li>
+                    }
+                    }
+                </ul>
+
+                @if (users.error()) {
+                <div class="alert alert-danger mt-3">
+                    Failed to load users. Please try again later.
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
