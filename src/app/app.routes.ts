@@ -19,7 +19,6 @@ import { Employees } from './employees/employees';
 // import { ReusableComponent } from './reusable/reusable.component';
 import { Storage } from './storage/storage';
 import { SignalForms } from './signal-forms/signal-forms';
-import { SignalStore } from './signal-store/signal-store';
 import { ExpenseTracker } from './expense-tracker/expense-tracker';
 import { Vehicles } from './vehicles/vehicles';
 
@@ -43,7 +42,6 @@ export const routes: Routes = [
   { path: 'parent', component: Parent },
   { path: 'storage', component: Storage },
   { path: 'signalforms', component: SignalForms },
-  { path: 'signalstore', component: SignalStore },
   { path: 'employees', component: Employees },
   { path: 'address', component: Address },
   { path: 'tracker', component: ExpenseTracker },

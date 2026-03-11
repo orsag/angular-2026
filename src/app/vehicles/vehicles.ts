@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormField, form } from '@angular/forms/signals';
 import { Vehicle, initialData, vehicleSchema } from './schema';
+import { NotificationService } from '../Services/notification-service';
 
 @Component({
   selector: 'app-vehicles',
@@ -9,6 +10,7 @@ import { Vehicle, initialData, vehicleSchema } from './schema';
   styleUrl: './vehicles.scss',
 })
 export class Vehicles {
+  notify = inject(NotificationService);
   // Create a form model signal with form fields
   // This represents the form's data structure
   vehicleModel = signal<Vehicle>(initialData);

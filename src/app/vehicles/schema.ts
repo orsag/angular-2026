@@ -30,8 +30,6 @@ export const initialData: Vehicle = {
 };
 
 // With no nulls, applyWhenValue isn't needed in this case
-// Could just use minLength
-// Left here as an example
 export const vehicleSchema = schema<Vehicle>((rootPath) => {
   required(rootPath.vehicleName, { message: 'Vehicle name is required' });
   required(rootPath.vehicleType, { message: 'Vehicle type is required' });
