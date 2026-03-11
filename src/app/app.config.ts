@@ -9,7 +9,7 @@ import { globalHttpErrorInterceptor } from './global-http-error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([authInterceptor, globalHttpErrorInterceptor])),
+    provideHttpClient(withInterceptors([globalHttpErrorInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),

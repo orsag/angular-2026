@@ -21,6 +21,13 @@ import { ExpenseTracker } from './expense-tracker/expense-tracker';
 import { Vehicles } from './vehicles/vehicles';
 import { UserSearch } from './user-search/user-search';
 import { Structural } from './structural/structural';
+import {
+  provideHttpClient,
+  withInterceptors,
+  withRequestsMadeViaParent,
+} from '@angular/common/http';
+import { authInterceptor } from './auth-interceptor';
+import { AdminPage } from './admin-page/admin-page';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -45,5 +52,12 @@ export const routes: Routes = [
   { path: 'tracker', component: ExpenseTracker },
   { path: 'vehicles', component: Vehicles },
   { path: 'users', component: UserSearch },
+  {
+    path: 'admin',
+    component: AdminPage,
+    providers: [
+      provideHttpClient(withInterceptors([authInterceptor]), withRequestsMadeViaParent()),
+    ],
+  },
   { path: '**', component: PageNotFound },
 ];

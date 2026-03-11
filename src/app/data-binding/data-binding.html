@@ -8,31 +8,70 @@
     <h2>User Name : {{dummyData.name}}</h2>
 </div> -->
 
-<section class="d-flex flex-column justify-content-center align-items-center pt-4">
-    <h4>One Way Data Binding</h4>
-    <div>
-        <p>1. Interpolation</p>
-        <p><b>{{topic}}</b> from {{name}}</p>
-    </div>
-    <div>
-        <p>2. Property Binding</p>
-        <input type="text" name="" id="" [value]="topic"> <br> <br>
-        <img class="img-fluid img-thumbnail" [src]="image" alt="slovakian-flag">
-    </div>
-    <div>
-        <p>3. Event Binding</p>
-        <button (click)="onSave()">Save</button> &nbsp;
-        <select (change)="onChange()">
-            <option value="Country">Country</option>
-            <option value="India">India</option>
-            <option value="Germany">Germany</option>
-            <option value="France">France</option>
-            <option value="Spain">Spain</option>
-        </select>
-    </div>
-    <h4>Two Way Data Binding</h4>
-    <div>
-        <input type="text" [(ngModel)]="randomText"> <br> <br>
-        {{randomText}}
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0 fs-5 text-center">One Way Data Binding</h4>
+                </div>
+                <div class="card-body p-4">
+
+                    <div class="mb-4 text-center">
+                        <span class="badge bg-light text-dark border mb-2">1. Interpolation</span>
+                        <p class="fs-5 mb-0">
+                            <strong class="text-primary">{{topic}}</strong> from <span
+                                class="text-muted">{{name}}</span>
+                        </p>
+                    </div>
+
+                    <hr class="text-muted opacity-25">
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">2. Property Binding</label>
+                        <input type="text" class="form-control" [value]="topic" placeholder="Value bound property">
+                    </div>
+
+                    <hr class="text-muted opacity-25">
+
+                    <div>
+                        <label class="form-label small fw-bold text-uppercase text-muted">3. Event Binding</label>
+                        <div class="d-flex gap-2">
+                            <button (click)="onSave()" class="btn btn-primary px-4">
+                                <i class="bi bi-save me-1"></i> Save
+                            </button>
+                            <select (change)="onChange()" class="form-select">
+                                <option value="Country" disabled selected>Select Country</option>
+                                <option value="India">India</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="Spain">Spain</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-info">
+                <div class="card-header bg-info text-dark py-3">
+                    <h4 class="mb-0 fs-5 text-center">Two Way Data Binding</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-light"><i class="bi bi-pencil"></i></span>
+                        <input type="text" class="form-control" [(ngModel)]="randomText"
+                            placeholder="Type something...">
+                    </div>
+
+                    <div class="p-3 bg-light rounded border border-info border-opacity-25 text-center">
+                        <span class="text-muted small d-block mb-1">Live Preview:</span>
+                        <span class="fw-bold text-info fs-5">{{ randomText || 'Waiting for input...' }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>

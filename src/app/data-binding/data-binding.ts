@@ -19,8 +19,6 @@ export class DataBinding {
 
   name: string = 'Angular Learning';
   topic: string = 'Data Binding';
-  image: string =
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Flag_of_Slovakia.svg/2560px-Flag_of_Slovakia.svg.png';
   randomText = 'Default text';
 
   onSave() {
