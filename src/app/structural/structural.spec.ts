@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StructuralSwitch } from './structural-switch';
+import { Structural } from './structural';
 
-describe('StructuralSwitch', () => {
-  let component: StructuralSwitch;
-  let fixture: ComponentFixture<StructuralSwitch>;
+describe('Structural', () => {
+  let component: Structural;
+  let fixture: ComponentFixture<Structural>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StructuralSwitch]
+      imports: [Structural]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StructuralSwitch);
+    fixture = TestBed.createComponent(Structural);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { User } from './user/user';
 import { Address } from './address/address';
 import { DataBinding } from './data-binding/data-binding';
-import { StructuralIf } from './structural-if/structural-if';
 import { AttributeDirectives } from './attribute-directives/attribute-directives';
 import { PageNotFound } from './page-not-found/page-not-found';
 import { BuiltPipes } from './built-pipes/built-pipes';
@@ -22,14 +20,13 @@ import { SignalForms } from './signal-forms/signal-forms';
 import { ExpenseTracker } from './expense-tracker/expense-tracker';
 import { Vehicles } from './vehicles/vehicles';
 import { UserSearch } from './user-search/user-search';
+import { Structural } from './structural/structural';
 
 export const routes: Routes = [
-  //   { path: '', component: UserComponent },
-  { path: '', redirectTo: 'user', pathMatch: 'full' },
-  { path: 'user', component: User },
+  { path: '', redirectTo: 'profile', pathMatch: 'full' },
   { path: 'profile', component: Profile },
   { path: 'data-binding', component: DataBinding },
-  { path: 'structural-directive', component: StructuralIf },
+  { path: 'structural', component: Structural },
   { path: 'attribute-directive', component: AttributeDirectives },
   { path: 'built-in-pipes', component: BuiltPipes },
   { path: 'tdf', component: TemplateDrivenForm },

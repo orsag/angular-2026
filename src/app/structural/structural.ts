@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TODOS } from '../model/mock-data';
 
 @Component({
-  selector: 'app-structural-for',
-  imports: [],
-  templateUrl: './structural-for.html',
-  styleUrl: './structural-for.scss',
+  selector: 'app-structural',
+  imports: [CommonModule, FormsModule],
+  templateUrl: './structural.html',
+  styleUrl: './structural.scss',
 })
-export class StructuralFor {
+export class Structural {
+  input1: string = '';
+  input2: string = '';
+
   employees: any[] = [
     { empName: 'John', empNumber: 101, empEmail: 'john@gmail.com', empDept: 'IT' },
     { empName: 'Bob', empNumber: 102, empEmail: 'bob@gmail.com', empDept: 'HR' },
@@ -15,5 +21,7 @@ export class StructuralFor {
     { empName: 'Viktor', empNumber: 104, empEmail: 'okolicanyi@gmail.com', empDept: 'MG' },
   ];
 
-  companyList: string[] = ['Apple', 'Microsoft', 'ApiTree', 'Tailwind', 'Google', 'Amazon'];
+  grade: number = 0;
+  status = signal('draft');
+  listTodos = signal(TODOS);
 }
