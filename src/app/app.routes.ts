@@ -21,6 +21,7 @@ import { Storage } from './storage/storage';
 import { SignalForms } from './signal-forms/signal-forms';
 import { SignalStore } from './signal-store/signal-store';
 import { ExpenseTracker } from './expense-tracker/expense-tracker';
+import { Vehicles } from './vehicles/vehicles';
 
 export const routes: Routes = [
   //   { path: '', component: UserComponent },
@@ -46,5 +47,6 @@ export const routes: Routes = [
   { path: 'employees', component: Employees },
   { path: 'address', component: Address },
   { path: 'tracker', component: ExpenseTracker },
+  { path: 'vehicles', component: Vehicles },
   { path: '**', component: PageNotFound },
 ];
