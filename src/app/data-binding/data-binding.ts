@@ -17,9 +17,9 @@ export class DataBinding {
   //   this.isEligible = this._sharedData.isEligibleForSubscription();
   // }
 
-  name: string = 'Angular Learning';
+  name: string = 'Martin';
   topic: string = 'Data Binding';
-  randomText = 'Default text';
+  randomText = '';
 
   onSave() {
     alert('Data Saved Successfully.');

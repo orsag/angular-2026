@@ -8,19 +8,13 @@
         <li>Email : {{dummyData.email}}</li>
     </ul> -->
 
-    <!-- 2. sharing business logic -->
-    <!-- @if(isEligible){
-    <h4 class="text-success">You are eligible for a premium subscription!</h4>
-    }@else{
-    <h4 class="text-danger">You are not eligible for a premium subscription!</h4>
-    } -->
-
     <!-- 3. interaction with api -->
 
     @if (userResource.isLoading()) {
     <p>Loading...</p>
     }
 
+    <h6>Using rxResource</h6>
     <ul>
         @for(data of userResource.value(); track data.id) {
         <li>Id : {{data.id}} {{data.name}} {{data.username}} {{data.email}}</li>
@@ -28,5 +22,42 @@
         <li>No data found.</li>
         }
     </ul>
+
+    <h6>Using rxjs pipe(map)</h6>
+    <ul class="d-flex flex-wrap gap-2 list-unstyled">
+        @for(username of usersNames$ | async; track username) {
+        <li class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+            {{ username }}
+        </li>
+        } @empty {
+        <li class="text-muted">No data found.</li>
+        }
+    </ul>
+
+    <h6>Filtered rxjs pipe(filter)</h6>
+    <ul class="d-flex flex-wrap gap-3 list-unstyled">
+        @for(user of filteredUsers$ | async; track user.id) {
+        <li class="card shadow-sm">
+            <div class="card-body py-1 px-3">
+                <small class="text-muted me-1">#{{ user.id }}</small>
+                <strong>{{ user.username }}</strong>
+            </div>
+        </li>
+        } @empty {
+        <li class="text-muted">No data found.</li>
+        }
+    </ul>
+
+    <h6>Select user category:</h6>
+    <select #mySelect (change)="onChange(mySelect.value)" class="form-select">
+        <option value="0">Select</option>
+        <option value="1">1st</option>
+        <option value="2">2nd</option>
+        <option value="3">3rd</option>
+    </select>
+    <h5 class="mt-1">Selected user:</h5>
+    @if (selectedUser$ | async; as user) {
+    <div>{{ user | json }}</div>
+    }
 
 </div>
