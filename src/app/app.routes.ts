@@ -28,6 +28,7 @@ import {
 } from '@angular/common/http';
 import { authInterceptor } from './auth-interceptor';
 import { AdminPage } from './admin-page/admin-page';
+import {Dashboard} from './dashboard/dashboard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -52,6 +53,7 @@ export const routes: Routes = [
   { path: 'tracker', component: ExpenseTracker },
   { path: 'vehicles', component: Vehicles },
   { path: 'users', component: UserSearch },
+  { path: 'dashboard', component: Dashboard },
   {
     path: 'admin',
     component: AdminPage,
