@@ -29,6 +29,7 @@ import {
 import { authInterceptor } from './auth-interceptor';
 import { AdminPage } from './admin-page/admin-page';
 import {Dashboard} from './dashboard/dashboard';
+import {UserDetails} from './user-details/user-details';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -54,6 +55,7 @@ export const routes: Routes = [
   { path: 'vehicles', component: Vehicles },
   { path: 'users', component: UserSearch },
   { path: 'dashboard', component: Dashboard },
+  { path: 'user-details', component: UserDetails },
   {
     path: 'admin',
     component: AdminPage,
