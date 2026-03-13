@@ -28,15 +28,16 @@ import {
 } from '@angular/common/http';
 import { authInterceptor } from './auth-interceptor';
 import { AdminPage } from './admin-page/admin-page';
-import {Dashboard} from './dashboard/dashboard';
-import {UserDetails} from './user-details/user-details';
+import { Dashboard } from './dashboard/dashboard';
+import { UserDetails } from './user-details/user-details';
+import { InfiniteScroll } from './infinite-scroll/infinite-scroll';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
   { path: 'profile', component: Profile },
   { path: 'data-binding', component: DataBinding },
   { path: 'structural', component: Structural },
-  { path: 'attribute-directive', component: AttributeDirectives },
+  { path: 'attribute', component: AttributeDirectives },
   { path: 'built-in-pipes', component: BuiltPipes },
   { path: 'tdf', component: TemplateDrivenForm },
   { path: 'rf', component: ReactiveForm },
@@ -56,6 +57,7 @@ export const routes: Routes = [
   { path: 'users', component: UserSearch },
   { path: 'dashboard', component: Dashboard },
   { path: 'user-details', component: UserDetails },
+  { path: 'infinite-scroll', component: InfiniteScroll },
   {
     path: 'admin',
     component: AdminPage,
