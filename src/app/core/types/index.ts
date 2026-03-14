@@ -62,3 +62,10 @@ export interface Iuser {
   username: string;
   email: string;
 }
+
+export interface InfiniteScrollConfig {
+  url: string;
+  pageSize: number;
+  initialPage?: number;
+  params?: Record<string, any>;
+}

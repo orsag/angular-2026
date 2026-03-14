@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface IMenuItem {
@@ -45,18 +45,18 @@ export class Sidebar {
     { id: crypto.randomUUID(), category: C.CORE, route: 'admin', title: 'Admin' },
     { id: crypto.randomUUID(), category: C.HOME, route: 'address', title: 'Address' },
     { id: crypto.randomUUID(), category: C.HOME, route: 'data-binding', title: 'Data-binding' },
-    { id: crypto.randomUUID(), category: C.BASICS, route: 'attribute', title: 'Attribute' },
-    { id: crypto.randomUUID(), category: C.HOME, route: 'built-in-pipes', title: 'Built-Pipes' },
-    { id: crypto.randomUUID(), category: C.BASICS, route: 'tdf', title: 'template-driven-form' },
-
-    { id: crypto.randomUUID(), category: C.BASICS, route: 'rf', title: 'reactive-form' },
     { id: crypto.randomUUID(), category: C.HOME, route: 'profile', title: 'Profile' },
     { id: crypto.randomUUID(), category: C.HOME, route: 'structural', title: 'Structural' },
-    { id: crypto.randomUUID(), category: C.BASICS, route: 'add-user', title: 'Add-user' },
+    { id: crypto.randomUUID(), category: C.HOME, route: 'built-in-pipes', title: 'Built-Pipes' },
 
+    { id: crypto.randomUUID(), category: C.BASICS, route: 'attribute', title: 'Attribute' },
+    { id: crypto.randomUUID(), category: C.BASICS, route: 'tdf', title: 'template-driven-form' },
+    { id: crypto.randomUUID(), category: C.BASICS, route: 'rf', title: 'reactive-form' },
+    { id: crypto.randomUUID(), category: C.BASICS, route: 'add-user', title: 'Add-user' },
     { id: crypto.randomUUID(), category: C.BASICS, route: 'resource-api', title: 'resource-api' },
     { id: crypto.randomUUID(), category: C.BASICS, route: 'employees', title: 'Employees' },
     { id: crypto.randomUUID(), category: C.BASICS, route: 'storage', title: 'Storage' },
+
     { id: crypto.randomUUID(), category: C.SIGNALS, route: 'signal-forms', title: 'signal-forms' },
     { id: crypto.randomUUID(), category: C.SIGNALS, route: 'vehicles', title: 'vehicles' },
 
