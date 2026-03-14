@@ -52,15 +52,13 @@ export class Sidebar {
     { id: crypto.randomUUID(), category: C.BASICS, route: 'rf', title: 'reactive-form' },
     { id: crypto.randomUUID(), category: C.HOME, route: 'profile', title: 'Profile' },
     { id: crypto.randomUUID(), category: C.HOME, route: 'structural', title: 'Structural' },
-    { id: crypto.randomUUID(), category: C.BASICS, route: 'crud', title: 'Crud' },
     { id: crypto.randomUUID(), category: C.BASICS, route: 'add-user', title: 'Add-user' },
-    { id: crypto.randomUUID(), category: C.BASICS, route: 'update-user', title: 'Update-user' },
 
-    { id: crypto.randomUUID(), category: C.BASICS, route: 'view-user', title: 'View-user' },
     { id: crypto.randomUUID(), category: C.BASICS, route: 'resource-api', title: 'resource-api' },
     { id: crypto.randomUUID(), category: C.BASICS, route: 'employees', title: 'Employees' },
     { id: crypto.randomUUID(), category: C.BASICS, route: 'storage', title: 'Storage' },
     { id: crypto.randomUUID(), category: C.SIGNALS, route: 'signal-forms', title: 'signal-forms' },
+    { id: crypto.randomUUID(), category: C.SIGNALS, route: 'vehicles', title: 'vehicles' },
 
     {
       id: crypto.randomUUID(),
@@ -68,7 +66,7 @@ export class Sidebar {
       route: 'expense-tracker',
       title: 'expense-tracker',
     },
-    { id: crypto.randomUUID(), category: C.EXPERIMENTAL, route: 'vehicles', title: 'vehicles' },
+
     {
       id: crypto.randomUUID(),
       category: C.EXPERIMENTAL,

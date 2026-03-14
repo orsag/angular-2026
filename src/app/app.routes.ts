@@ -7,10 +7,7 @@ import { BuiltPipes } from './features/home/built-pipes/built-pipes';
 import { TemplateDrivenForm } from './features/basics/template-driven-form/template-driven-form';
 import { ReactiveForm } from './features/basics/reactive-form/reactive-form';
 import { Profile } from './features/home/profile/profile';
-import { Crud } from './features/basics/crud/crud';
 import { AddUser } from './features/basics/add-user/add-user';
-import { UpdateUser } from './features/basics/update-user/update-user';
-import { ViewUser } from './features/basics/view-user/view-user';
 import { ResourceApi } from './features/basics/resource-api/resource-api';
 import { Employees } from './features/basics/employees/employees';
 import { Storage } from './features/basics/storage/storage';
@@ -40,10 +37,7 @@ export const routes: Routes = [
   { path: 'built-in-pipes', component: BuiltPipes },
   { path: 'tdf', component: TemplateDrivenForm },
   { path: 'rf', component: ReactiveForm },
-  { path: 'crud', component: Crud },
   { path: 'add-user', component: AddUser },
-  { path: 'update-user/:id', component: UpdateUser },
-  { path: 'view-user/:id', component: ViewUser },
   { path: 'resource-api', component: ResourceApi },
   { path: 'storage', component: Storage },
   { path: 'signal-forms', component: SignalForms },
