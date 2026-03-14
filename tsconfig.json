@@ -3,6 +3,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./", 
+    "paths": {
+      "@services/*": ["src/app/shared/services/*"],
+      "@components/*": ["src/app/shared/components/*"],
+      "@directives/*": ["src/app/shared/directives/*"],
+      "@pipes/*": ["src/app/shared/pipes/*"],
+      "@data/*": ["src/app/shared/data/*"],
+      "@types": ["src/app/core/types/index.ts"],
+      "@types/*": ["src/app/core/types/*"],
+      "@store/*": ["src/app/store/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

@@ -1,8 +1,8 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { inject, computed } from '@angular/core';
-import { SharedData as SharedDataService } from '../Services/shared-data';
+import { SharedData as SharedDataService } from '@services/shared-data';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { Employee } from '../types';
+import { Employee } from '@types';
 
 type EmployeeStoreState = {
   refreshTrigger: number;

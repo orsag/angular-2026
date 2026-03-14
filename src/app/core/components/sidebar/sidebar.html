@@ -1,0 +1,45 @@
+<div class="sidebar d-flex flex-column p-3 bg-light" style="width: 280px; height: 100vh;">
+  <ul class="nav nav-pills flex-column mb-auto">
+
+    @for (item of groupedMenu().flatItems; track item.id) {
+    <li class="w-100 nav-item">
+      <a [routerLink]="item.route" (click)="toggleCategory(item.category)"
+        class="nav-link link-dark d-flex align-items-center" routerLinkActive="active-item">
+        <i class="bi bi-speedometer2 me-2"></i> {{ item.title }}
+      </a>
+    </li>
+    }
+
+    <hr>
+
+    @for (group of groupedMenu().categories; track group[0]) {
+    @let categoryName = group[0];
+    @let items = group[1];
+    @let isOpen = openCategory() === categoryName;
+
+
+    <li class="mb-1">
+      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 w-100 text-start"
+        (click)="toggleCategory(categoryName)" [class.collapsed]="openCategory() !== categoryName">
+        <i class="bi bi-chevron-right me-2 transition-icon"
+          [style.transform]="isOpen ? 'rotate(90deg)' : 'rotate(0deg)'"></i>
+        <strong>{{ categoryName }}</strong>
+      </button>
+
+      <div class="collapse" [class.show]="isOpen">
+        <ul class="btn-toggle-nav list-unstyled p-0">
+          @for (subItem of items; track subItem.id) {
+          <li>
+            <a [routerLink]="subItem.route" routerLinkActive="active-item"
+              class="nav-link-custom d-flex align-items-center w-100">
+              <span class="indent-spacer"></span>
+              {{ subItem.title }}
+            </a>
+          </li>
+          }
+        </ul>
+      </div>
+    </li>
+    }
+  </ul>
+</div>

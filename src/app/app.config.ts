@@ -4,8 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './auth-interceptor';
-import { globalHttpErrorInterceptor } from './global-http-error-interceptor';
+import { globalHttpErrorInterceptor } from './core/interceptors/global-http-error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

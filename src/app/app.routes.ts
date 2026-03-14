@@ -1,36 +1,35 @@
 import { Routes } from '@angular/router';
-import { Address } from './address/address';
-import { DataBinding } from './data-binding/data-binding';
-import { AttributeDirectives } from './attribute-directives/attribute-directives';
-import { PageNotFound } from './page-not-found/page-not-found';
-import { BuiltPipes } from './built-pipes/built-pipes';
-import { TemplateDrivenForm } from './template-driven-form/template-driven-form';
-import { ReactiveForm } from './reactive-form/reactive-form';
-import { Profile } from './profile/profile';
-import { Crud } from './crud/crud';
-import { AddUser } from './add-user/add-user';
-import { UpdateUser } from './update-user/update-user';
-import { ViewUser } from './view-user/view-user';
-import { ResourceApi } from './resource-api/resource-api';
-import { Parent } from './parent/parent';
-import { Employees } from './employees/employees';
-// import { ReusableComponent } from './reusable/reusable.component';
-import { Storage } from './storage/storage';
-import { SignalForms } from './signal-forms/signal-forms';
-import { ExpenseTracker } from './expense-tracker/expense-tracker';
-import { Vehicles } from './vehicles/vehicles';
-import { UserSearch } from './user-search/user-search';
-import { Structural } from './structural/structural';
+import { Address } from './features/home/address/address';
+import { DataBinding } from './features/home/data-binding/data-binding';
+import { AttributeDirectives } from './features/basics/attribute-directives/attribute-directives';
+import { PageNotFound } from './features/core/page-not-found/page-not-found';
+import { BuiltPipes } from './features/home/built-pipes/built-pipes';
+import { TemplateDrivenForm } from './features/basics/template-driven-form/template-driven-form';
+import { ReactiveForm } from './features/basics/reactive-form/reactive-form';
+import { Profile } from './features/home/profile/profile';
+import { Crud } from './features/basics/crud/crud';
+import { AddUser } from './features/basics/add-user/add-user';
+import { UpdateUser } from './features/basics/update-user/update-user';
+import { ViewUser } from './features/basics/view-user/view-user';
+import { ResourceApi } from './features/basics/resource-api/resource-api';
+import { Employees } from './features/basics/employees/employees';
+import { Storage } from './features/basics/storage/storage';
+import { SignalForms } from './features/signals/signal-forms/signal-forms';
+import { ExpenseTracker } from './features/experimental/expense-tracker/expense-tracker';
+import { Vehicles } from './features/experimental/vehicles/vehicles';
+import { UserSearch } from './features/experimental/user-search/user-search';
+import { Structural } from './features/home/structural/structural';
+import { AdminPage } from './features/core/admin-page/admin-page';
+import { Dashboard } from './features/experimental/dashboard/dashboard';
+import { UserDetails } from './features/experimental/user-details/user-details';
+import { InfiniteScroll } from './features/experimental/infinite-scroll/infinite-scroll';
+// ========================
+import { authInterceptor } from './core/interceptors/auth-interceptor';
 import {
   provideHttpClient,
   withInterceptors,
   withRequestsMadeViaParent,
 } from '@angular/common/http';
-import { authInterceptor } from './auth-interceptor';
-import { AdminPage } from './admin-page/admin-page';
-import { Dashboard } from './dashboard/dashboard';
-import { UserDetails } from './user-details/user-details';
-import { InfiniteScroll } from './infinite-scroll/infinite-scroll';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -42,19 +41,17 @@ export const routes: Routes = [
   { path: 'tdf', component: TemplateDrivenForm },
   { path: 'rf', component: ReactiveForm },
   { path: 'crud', component: Crud },
-  { path: 'adduser', component: AddUser },
-  { path: 'updateuser/:id', component: UpdateUser },
-  { path: 'viewuser/:id', component: ViewUser },
-  { path: 'resourceapi', component: ResourceApi },
-  // { path: 'reusable', component: ReusableComponent },
-  { path: 'parent', component: Parent },
+  { path: 'add-user', component: AddUser },
+  { path: 'update-user/:id', component: UpdateUser },
+  { path: 'view-user/:id', component: ViewUser },
+  { path: 'resource-api', component: ResourceApi },
   { path: 'storage', component: Storage },
-  { path: 'signalforms', component: SignalForms },
+  { path: 'signal-forms', component: SignalForms },
   { path: 'employees', component: Employees },
   { path: 'address', component: Address },
-  { path: 'tracker', component: ExpenseTracker },
+  { path: 'expense-tracker', component: ExpenseTracker },
   { path: 'vehicles', component: Vehicles },
-  { path: 'users', component: UserSearch },
+  { path: 'user-search', component: UserSearch },
   { path: 'dashboard', component: Dashboard },
   { path: 'user-details', component: UserDetails },
   { path: 'infinite-scroll', component: InfiniteScroll },

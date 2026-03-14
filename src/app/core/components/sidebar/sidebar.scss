@@ -1,0 +1,52 @@
+// The "Parent" links and "Child" links should share the same base padding
+.btn-toggle, .nav-link-custom {
+  padding: 0.75rem 1.25rem; // Identical vertical and horizontal padding
+  color: #333;
+  transition: all 0.2s ease;
+  border-radius: 0; // Or slight radius if you prefer the "floating" look
+  display: flex;
+  width: 100%;
+  border: none;
+  background: transparent;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--bs-primary);
+  }
+}
+
+// The "Active" state for child items
+.active-item {
+  background-color: #eef2ff !important; // Very light primary tint
+  color: var(--bs-primary) !important;
+  font-weight: 600;
+  border-right: 4px solid var(--bs-primary); // Adds a nice active indicator
+}
+
+// This creates the visual nesting WITHOUT moving the hit area
+.indent-spacer {
+  display: inline-block;
+  width: 1.5rem; // Adjust this to control how far sub-items are indented
+}
+
+// Chevron transition
+.transition-icon {
+  transition: transform 0.2s ease;
+}
+.collapsed .transition-icon {
+  transform: rotate(0deg);
+}
+button:not(.collapsed) .transition-icon {
+  transform: rotate(90deg);
+}
+/* Smoothly animate height when [class.show] is toggled by Angular */
+.collapse {
+  transition: height 0.35s ease;
+  display: block; /* Override bootstrap's display: none */
+  height: 0;
+  overflow: hidden;
+}
+
+.collapse.show {
+  height: auto;
+}
