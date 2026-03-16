@@ -14,6 +14,7 @@ enum C {
   CORE = 'core',
   EXPERIMENTAL = 'experimental',
   SIGNALS = 'signals',
+  RXJS = 'rxjs',
 }
 
 @Component({
@@ -85,6 +86,13 @@ export class Sidebar {
       category: C.EXPERIMENTAL,
       route: 'infinite-scroll',
       title: 'Infinite-scroll',
+    },
+
+    {
+      id: crypto.randomUUID(),
+      category: C.RXJS,
+      route: 'photo-gallery',
+      title: 'Photo-gallery',
     },
   ]);
 

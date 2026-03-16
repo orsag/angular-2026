@@ -27,6 +27,7 @@ import {
   withInterceptors,
   withRequestsMadeViaParent,
 } from '@angular/common/http';
+import { PhotoGallery } from './features/rxjs/photo-gallery/photo-gallery';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -49,6 +50,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: Dashboard },
   { path: 'user-details', component: UserDetails },
   { path: 'infinite-scroll', component: InfiniteScroll },
+  { path: 'photo-gallery', component: PhotoGallery },
   {
     path: 'admin',
     component: AdminPage,

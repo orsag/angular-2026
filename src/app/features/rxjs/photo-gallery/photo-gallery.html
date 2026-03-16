@@ -1,0 +1,14 @@
+<div class="gallery-container">
+    <h3>Shared Photo Cache</h3>
+
+    @if (photos$ | async; as photos) {
+    <div class="d-flex flex-wrap gap-2">
+        @for (photo of photos; track photo.id) {
+        <img [src]="photo.thumbnailUrl" [alt]="photo.title" class="img-thumbnail" style="width: 100px; height: 100px;">
+        }
+    </div>
+    } @else {
+    <div class="spinner-border text-primary"></div>
+    <p>Fetching images once and caching...</p>
+    }
+</div>
