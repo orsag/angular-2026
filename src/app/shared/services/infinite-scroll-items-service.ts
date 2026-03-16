@@ -15,6 +15,10 @@ import {
   observeOn,
   asyncScheduler,
   distinctUntilChanged,
+  catchError,
+  exhaustMap,
+  finalize,
+  of,
 } from 'rxjs';
 import { InfiniteScrollConfig } from '@types';
 
@@ -35,19 +39,37 @@ export class InfiniteScrollingService<T extends { id: string | number }> {
   loading$ = new BehaviorSubject<boolean>(false);
 
   allItems$ = merge(
+    // 1. Standard Pagination Logic
     this.pageSubject.pipe(
       distinctUntilChanged(),
       map((page) => ({ type: 'LOAD' as const, page })),
     ),
-    this.refreshSubject.pipe(map(() => ({ type: 'RESET' as const, page: 1 }))),
+    // 2. The Smart Buffer Refresh Logic
+    this.refreshSubject.pipe(
+      // exhaustMap ensures if a refresh is in progress, new clicks are ignored
+      exhaustMap(() =>
+        // We return the fetchData call here so exhaustMap knows when it finishes
+        this.fetchData(1).pipe(
+          map((data) => ({ type: 'RESET' as const, data })),
+          // Reset the page subject internally so future 'Next Page' calls start from 2
+          tap(() => this.pageSubject.next(1)),
+        ),
+      ),
+    ),
   ).pipe(
     observeOn(asyncScheduler),
-    tap(() => this.loading$.next(true)),
-    switchMap((action) =>
-      this.fetchData(action.page).pipe(map((data) => ({ type: action.type, data }))),
-    ),
+    // Start loading for LOAD actions (Refresh handles its own loading via exhaustMap/fetchData)
+    tap((action) => {
+      if (action.type === 'LOAD') this.loading$.next(true);
+    }),
+    switchMap((action) => {
+      // If it's a RESET, the data is already fetched by the exhaustMap above
+      if (action.type === 'RESET') return of(action);
+
+      // If it's a LOAD, fetch it normally
+      return this.fetchData(action.page).pipe(map((data) => ({ type: 'LOAD' as const, data })));
+    }),
     scan((acc: T[], curr: any) => {
-      // 3. Optional: Add a final check to prevent ID duplicates just in case
       if (curr.type === 'RESET') return curr.data;
 
       const existingIds = new Set(acc.map((c) => c.id));
@@ -59,9 +81,7 @@ export class InfiniteScrollingService<T extends { id: string | number }> {
   );
 
   private fetchData(page: number): Observable<T[]> {
-    let params = new HttpParams()
-      .set('_page', this.pageSubject.value)
-      .set('_limit', this.config.pageSize);
+    let params = new HttpParams().set('_page', page).set('_limit', this.config.pageSize);
     if (this.config.params) {
       Object.entries(this.config.params).forEach(([key, value]) => {
         params = params.set(key, value);
@@ -75,12 +95,12 @@ export class InfiniteScrollingService<T extends { id: string | number }> {
   loadNextPage() {
     // Only load next page if we aren't currently filtering
     if (!this.loading$.value) {
-      this.pageSubject.next(this.pageSubject.value + 1);
+      const nextPage = this.pageSubject.value + 1;
+      this.pageSubject.next(nextPage);
     }
   }
 
   refresh() {
-    this.pageSubject.next(1); // Reset internal page counter
     this.refreshSubject.next(); // Trigger the scan reset
   }
 }

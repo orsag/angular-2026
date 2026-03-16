@@ -21,9 +21,12 @@
         </div>
 
         <div class="col-md-3 text-end">
-          <button (click)="service.refresh()" class="btn btn-primary shadow-sm" [disabled]="service.loading$ | async">
-            <i class="bi bi-arrow-clockwise" [class.spin]="service.loading$ | async"></i>
-            Refresh
+          <button (click)="service.refresh()" [disabled]="service.loading$ | async" class="btn btn-primary shadow-sm">
+            @if (service.loading$ | async) {
+            <span class="spinner-border spinner-border-sm"></span>
+            } @else {
+            <i class="bi bi-arrow-clockwise"></i> Refresh
+            }
           </button>
         </div>
       </div>

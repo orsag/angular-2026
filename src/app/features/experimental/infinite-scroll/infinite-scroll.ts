@@ -91,8 +91,8 @@ export class InfiniteScroll implements OnDestroy {
         if (this.restoringScroll) {
           return; // Ignore the first intersection event
         }
-        // If the anchor div is visible and we aren't already loading...
-        if (entry.isIntersecting && !this.service.loading$.value && !this.isSearching()) {
+        const canLoad = entry.isIntersecting && !this.service.loading$.value && !this.isSearching();
+        if (canLoad) {
           this.service.loadNextPage();
         }
       },
