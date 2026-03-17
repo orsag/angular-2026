@@ -1,11 +1,21 @@
-<div class="sidebar d-flex flex-column p-3 bg-light" style="width: 280px; height: 100vh;">
+<div class="sidebar d-flex flex-column p-3 bg-light" [class.collapsed]="isCollapsed()"
+  style="width: 280px; height: 100vh;">
+
   <ul class="nav nav-pills flex-column mb-auto">
 
     @for (item of groupedMenu().flatItems; track item.id) {
     <li class="w-100 nav-item">
       <a [routerLink]="item.route" (click)="toggleCategory(item.category)"
         class="nav-link link-dark d-flex align-items-center" routerLinkActive="active-item">
-        <i class="bi bi-speedometer2 me-2"></i> {{ item.title }}
+
+        <i class="bi bi-speedometer2 me-2"></i>
+
+        <!-- Skry text, keď je sidebar collapsed -->
+        @if(!isCollapsed()){
+        <span class="menu-text">
+          {{ item.title }}
+        </span>
+        }
       </a>
     </li>
     }
@@ -15,25 +25,28 @@
     @for (group of groupedMenu().categories; track group[0]) {
     @let categoryName = group[0];
     @let items = group[1];
-    @let isOpen = openCategory() === categoryName;
+    @let isOpen = openCategory() === categoryName && !isCollapsed();
 
 
     <li class="mb-1">
       <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 w-100 text-start"
-        (click)="toggleCategory(categoryName)" [class.collapsed]="openCategory() !== categoryName">
+        (click)="!isCollapsed() && toggleCategory(categoryName)" [class.collapsed]="!isOpen">
+
         <i class="bi bi-chevron-right me-2 transition-icon"
           [style.transform]="isOpen ? 'rotate(90deg)' : 'rotate(0deg)'"></i>
-        <strong>{{ categoryName }}</strong>
+
+        <span class="menu-text">{{ categoryName }}</span>
       </button>
 
-      <div class="collapse" [class.show]="isOpen">
+      <div class="category-content" [class.open]="isOpen">
         <ul class="btn-toggle-nav list-unstyled p-0">
           @for (subItem of items; track subItem.id) {
           <li>
             <a [routerLink]="subItem.route" routerLinkActive="active-item"
               class="nav-link-custom d-flex align-items-center w-100">
+
               <span class="indent-spacer"></span>
-              {{ subItem.title }}
+              <span class="menu-text">{{ subItem.title }}</span>
             </a>
           </li>
           }
@@ -42,4 +55,10 @@
     </li>
     }
   </ul>
+
+  <div class="mt-auto pt-3">
+    <button class="collapse-btn" (click)="toggleSidebar()">
+      <i class="bi" [ngClass]="isCollapsed() ? 'bi-arrow-right-square' : 'bi-arrow-left-square'"></i>
+    </button>
+  </div>
 </div>

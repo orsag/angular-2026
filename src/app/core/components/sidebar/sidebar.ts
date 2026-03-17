@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -19,22 +20,46 @@ enum C {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
   openCategory = signal<string | null>(null);
+  lastOpenCategory = signal<string | null>(null);
+  isCollapsed = signal(false);
+
+  toggleSidebar() {
+    const collapsed = !this.isCollapsed();
+
+    this.isCollapsed.set(collapsed);
+
+    if (collapsed) {
+      // Sidebar sa zatvára → zapamätaj si otvorenú kategóriu
+      this.lastOpenCategory.set(this.openCategory());
+      this.openCategory.set(null);
+    } else {
+      // Sidebar sa otvára → obnov kategóriu
+      if (this.lastOpenCategory()) {
+        this.openCategory.set(this.lastOpenCategory());
+      }
+    }
+  }
 
   toggleCategory(name: string) {
     if (this.isCoreCategory(name)) {
-      // Admin or other CORE item clicked → collapse everything
       this.openCategory.set(null);
+      this.lastOpenCategory.set(null);
       return;
     }
 
-    // Normal category toggle
-    this.openCategory.update((current) => (current === name ? null : name));
+    this.openCategory.update((current) => {
+      const newValue = current === name ? null : name;
+      if (newValue) {
+        this.lastOpenCategory.set(newValue);
+      }
+      return newValue;
+    });
   }
 
   isCoreCategory(name: string) {
