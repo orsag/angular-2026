@@ -1,0 +1,30 @@
+/* styles.css */
+
+/* 1. Izolujeme sidebar z hlavnej animácie */
+.sidebar {
+  view-transition-name: sidebar-fixed;
+}
+
+/* 2. Definujeme, že sidebar-fixed sa nemá animovať (žiadne fades) */
+::view-transition-old(sidebar-fixed),
+::view-transition-new(sidebar-fixed) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 3. Zvyšok animácie pre root (tvoj fade) zostáva */
+::view-transition-old(root) {
+  animation: 300ms ease-out both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 300ms ease-in both fade-in;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes fade-out {
+  to { opacity: 0; }
+}

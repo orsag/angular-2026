@@ -1,9 +1,11 @@
 <div class="sidebar d-flex flex-column p-3" [class.collapsed]="isCollapsed()" style="width: 280px; height: 100vh;">
 
   <div class="theme-toggle mb-3 d-flex align-items-center">
-    <button class="btn btn-sm btn-outline-secondary w-100" (click)="this.themeService.toggleTheme()">
-      <i class="bi" [ngClass]="theme() === 'light' ? 'bi-moon' : 'bi-sun'"></i>
-      <span class="menu-text ms-2">
+    <button class="btn btn-sm btn-outline-secondary d-flex align-items-center theme-toggle-btn w-100"
+      [title]="theme() === 'light' ? 'Dark mode' : 'Light mode'" (click)="themeService.toggleTheme()">
+      <i class="bi theme-icon" [ngClass]="theme() === 'light' ? 'bi-moon' : 'bi-sun'"></i>
+
+      <span class="menu-text">
         {{ theme() === 'light' ? 'Dark mode' : 'Light mode' }}
       </span>
     </button>
