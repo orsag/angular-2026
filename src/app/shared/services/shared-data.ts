@@ -67,22 +67,4 @@ export class SharedData {
   getUserData() {
     return this.http.get<Employee[]>(API_URL);
   }
-
-  setLocalStorage(nameKey: string, value: string) {
-    if (nameKey.trim().length > 0 && value.trim().length > 0) {
-      localStorage.setItem(nameKey, value);
-    }
-  }
-
-  getLocalStorage(nameKey: string) {
-    return localStorage.getItem(nameKey) ?? '';
-  }
-
-  removeLocalStorage(nameKey: string) {
-    localStorage.removeItem(nameKey);
-  }
-
-  clearLocalStorage() {
-    localStorage.clear();
-  }
 }

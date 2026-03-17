@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angul
 import { IAddress } from '@types';
 import { form, required, minLength, maxLength, FormField } from '@angular/forms/signals';
 import { CommonModule } from '@angular/common';
-import { SharedData as SharedDataService } from '@services/shared-data';
+import { ThemeService } from '@services/theme-service';
 
 declare var bootstrap: any;
 
@@ -25,15 +25,13 @@ const getEmptyForm = (): IAddress => ({
 })
 export class Address implements OnInit {
   @ViewChild('confirmModal') modalElement!: ElementRef;
-  private _sharedData = inject(SharedDataService);
+  private themeService = inject(ThemeService);
   addressModel = signal<IAddress>(getEmptyForm());
 
   ngOnInit() {
-    if (this._sharedData) {
-      const previousAddress = this._sharedData?.getLocalStorage('address');
-      if (previousAddress) {
-        this.addressModel.set(JSON.parse(previousAddress) as IAddress);
-      }
+    const previousAddress = this.themeService.getLocalStorage('address');
+    if (previousAddress) {
+      this.addressModel.set(JSON.parse(previousAddress) as IAddress);
     }
   }
 
@@ -58,7 +56,7 @@ export class Address implements OnInit {
     if (this.addressForm().valid()) {
       const data = this.addressModel();
       const stringData = JSON.stringify(data);
-      this._sharedData.setLocalStorage('address', stringData);
+      this.themeService.setLocalStorage('address', stringData);
     }
   }
 

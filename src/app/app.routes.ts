@@ -13,7 +13,7 @@ import { Employees } from './features/basics/employees/employees';
 import { Storage } from './features/basics/storage/storage';
 import { SignalForms } from './features/signals/signal-forms/signal-forms';
 import { ExpenseTracker } from './features/experimental/expense-tracker/expense-tracker';
-import { Vehicles } from './features/experimental/vehicles/vehicles';
+import { Vehicles } from './features/signals/vehicles/vehicles';
 import { UserSearch } from './features/experimental/user-search/user-search';
 import { Structural } from './features/home/structural/structural';
 import { AdminPage } from './features/core/admin-page/admin-page';

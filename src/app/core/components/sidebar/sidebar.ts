@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ThemeService } from '@services/theme-service';
 
 interface IMenuItem {
   id: string;
@@ -25,6 +26,8 @@ enum C {
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
+  themeService = inject(ThemeService);
+  theme = this.themeService.theme;
   openCategory = signal<string | null>(null);
   lastOpenCategory = signal<string | null>(null);
   isCollapsed = signal(false);

@@ -1,7 +1,13 @@
+.btn-toggle,
+.nav-link-custom,
+.nav-link {
+  color: var(--bs-body-color);
+}
+
 // The "Parent" links and "Child" links should share the same base padding
 .btn-toggle, .nav-link-custom {
   padding: 0.75rem 1.25rem; // Identical vertical and horizontal padding
-  color: #333;
+  color: var(--bs-body-color);
   transition: all 0.2s ease;
   border-radius: 0; // Or slight radius if you prefer the "floating" look
   display: flex;
@@ -17,10 +23,10 @@
 
 // The "Active" state for child items
 .active-item {
-  background-color: #eef2ff !important; // Very light primary tint
+  background-color: var(--bs-primary-bg-subtle);
+  border-right: 4px solid var(--bs-primary-border-subtle);
   color: var(--bs-primary) !important;
   font-weight: 600;
-  border-right: 4px solid var(--bs-primary); // Adds a nice active indicator
 }
 
 // This creates the visual nesting WITHOUT moving the hit area
@@ -44,6 +50,8 @@
 
 /* --- Sidebar expand/shrink animation --- */
 .sidebar {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
   transition: width 0.25s ease, padding 0.25s ease;
 }
 

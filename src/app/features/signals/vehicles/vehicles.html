@@ -1,0 +1,135 @@
+<div class="card">
+    <div class="card-header">
+        Add a Vehicle
+    </div>
+
+    <div class="card-body">
+        <form autocomplete="off">
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label for="vehicleNameId" class="form-label">
+                        Name
+                        @if (vehicleForm.vehicleName().required()) {
+                        <span class="text-danger">*</span>
+                        }
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-car-front"></i>
+                        </span>
+                        <input type="text" id="vehicleNameId" class="form-control"
+                            [class.is-invalid]="vehicleForm.vehicleName().invalid() && vehicleForm.vehicleName().touched()"
+                            [formField]="vehicleForm.vehicleName" placeholder="Enter vehicle name" />
+                    </div>
+
+                    @if (vehicleForm.vehicleName().invalid() && vehicleForm.vehicleName().touched()) {
+                    <div class="invalid-feedback d-block mt-1">
+                        @for (error of vehicleForm.vehicleName().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="col-md-6">
+                    <label for="vehicleTypeId" class="form-label">
+                        Type
+                        @if (vehicleForm.vehicleType().required()) {
+                        <span class="text-danger">*</span>
+                        }
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-tags"></i>
+                        </span>
+                        <input type="text" id="vehicleTypeId" class="form-control"
+                            [class.is-invalid]="vehicleForm.vehicleType().invalid() && vehicleForm.vehicleType().touched()"
+                            [formField]="vehicleForm.vehicleType" placeholder="Enter vehicle type" />
+                    </div>
+
+                    @if (vehicleForm.vehicleType().invalid() && vehicleForm.vehicleType().touched()) {
+                    <div class="invalid-feedback d-block mt-1">
+                        @for (error of vehicleForm.vehicleType().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="col-md-6">
+                    <label for="descriptionId" class="form-label">Description</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                        <input type="text" id="descriptionId" class="form-control"
+                            [class.is-invalid]="vehicleForm.description().invalid() && vehicleForm.description().touched()"
+                            [formField]="vehicleForm.description" placeholder="Enter vehicle description" />
+                    </div>
+
+                    @if (vehicleForm.description().invalid() && vehicleForm.description().touched()) {
+                    <div class="invalid-feedback d-block mt-1">
+                        @for (error of vehicleForm.description().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="col-md-6">
+                    <label for="passengerId" class="form-label">Passengers</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-people"></i>
+                        </span>
+                        <input type="number" id="passengerId" class="form-control"
+                            [class.is-invalid]="vehicleForm.occupancy().invalid() && vehicleForm.occupancy().touched()"
+                            [formField]="vehicleForm.occupancy" placeholder="Number of passengers" />
+                    </div>
+
+                    @if (vehicleForm.occupancy().invalid() && vehicleForm.occupancy().touched()) {
+                    <div class="invalid-feedback d-block mt-1">
+                        @for (error of vehicleForm.occupancy().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="col-md-6">
+                    <label for="manufactureDateId" class="form-label">Manufacture Date</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-calendar-event"></i>
+                        </span>
+                        <input type="date" id="manufactureDateId" class="form-control"
+                            [class.is-invalid]="vehicleForm.manufactureDate().invalid() && vehicleForm.manufactureDate().touched()"
+                            [formField]="vehicleForm.manufactureDate" />
+                    </div>
+
+                    @if (vehicleForm.manufactureDate().invalid() && vehicleForm.manufactureDate().touched()) {
+                    <div class="invalid-feedback d-block mt-1">
+                        @for (error of vehicleForm.manufactureDate().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <button type="button" class="btn btn-primary me-2" [disabled]="vehicleForm().invalid()">
+                    Save Vehicle
+                </button>
+
+                <button type="button" class="btn btn-secondary" (click)="notify.show('Testing toaster', 'success')">
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
