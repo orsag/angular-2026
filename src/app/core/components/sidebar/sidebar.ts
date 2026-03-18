@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ThemeService } from '@services/theme-service';
+import { ThemeService } from 'src/app/core/services/theme-service';
 
 interface IMenuItem {
   id: string;

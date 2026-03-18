@@ -18,3 +18,14 @@ main {
   overflow-x: auto;
   overflow-y: hidden;
 }
+
+.progress {
+  /* Zabezpečí, že progress bar bude úplne hore a neposunie obsah nižšie */
+  height: 4px;
+  background-color: transparent; /* Aby nepôsobil rušivo */
+}
+
+.progress-bar {
+  /* Môžeš si upraviť farbu, ak chceš inú než default modrú */
+  background-color: var(--bs-primary);
+}

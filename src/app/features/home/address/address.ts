@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angul
 import { IAddress } from '@types';
 import { form, required, minLength, maxLength, FormField } from '@angular/forms/signals';
 import { CommonModule } from '@angular/common';
-import { ThemeService } from '@services/theme-service';
+import { ThemeService } from 'src/app/core/services/theme-service';
 
 declare var bootstrap: any;
 

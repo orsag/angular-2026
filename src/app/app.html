@@ -2,7 +2,15 @@
   <app-sidebar></app-sidebar>
 
   <!-- Main content page -->
-  <main class="flex-column flex-grow-1 vh-100 overflow-y-auto">
+  <main class="flex-column flex-grow-1 vh-100 overflow-y-auto position-relative">
+
+    @if (loadingService.isLoading()) {
+    <div class="progress position-absolute top-0 start-0 w-100"
+      style="height: 4px; border-radius: 0; z-index: 2000 !important;" role="progressbar">
+      <div class="progress-bar progress-bar-striped progress-bar-animated w-100"></div>
+    </div>
+    }
+
     <router-outlet></router-outlet>
   </main>
 

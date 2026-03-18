@@ -2,7 +2,8 @@ import { Component, inject } from '@angular/core';
 import { ToastContainer } from '@components/toast-container/toast-container';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from './core/components/sidebar/sidebar';
-import { ThemeService } from '@services/theme-service';
+import { ThemeService } from './core/services/theme-service';
+import { LoadingService } from './core/services/loading-service';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,6 @@ import { ThemeService } from '@services/theme-service';
   styleUrl: './app.scss',
 })
 export class App {
-  theme = inject(ThemeService);
+  protected loadingService = inject(LoadingService);
+  protected theme = inject(ThemeService);
 }
