@@ -1,0 +1,82 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-4 text-primary">Van Fleet Search</h3>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi bi-search text-muted"></i> </span>
+                        <input type="text" class="form-control border-start-0 ps-0"
+                            placeholder="Search (e.g. Delica, Trafic, Jogger)..." [value]="searchQuery()"
+                            (input)="updateSearch($event)" />
+
+                        @if (isLoading()) {
+                        <div class="input-group-text bg-white">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    @if (errorMessage()) {
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <div>{{ errorMessage() }}</div>
+                    </div>
+                    }
+
+                    <div class="row g-2 mb-4 align-items-center">
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select" id="sortSelect" (change)="onSortChange($event)"
+                                    [value]="sortBy()">
+                                    <option value="cargoCapacity">Cargo Capacity</option>
+                                    <option value="seats">Number of Seats</option>
+                                    <option value="category">Category</option>
+                                    <option value="brand">Brand Name</option>
+                                </select>
+                                <label for="sortSelect">Sort Results By</label>
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <button class="btn btn-outline-primary h-100 py-3 px-3"
+                                (click)="sortAscending.set(!sortAscending())"
+                                [title]="sortAscending() ? 'Sort Ascending' : 'Sort Descending'">
+                                <i class="bi" [class.bi-sort-numeric-down]="sortAscending()"
+                                    [class.bi-sort-numeric-up-alt]="!sortAscending()"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="list-group list-group-flush mt-3">
+                        @for (van of sortedVans(); track van.id) {
+                        <div
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                            <div>
+                                <h6 class="mb-0 fw-bold">{{ van.brand }} {{ van.model }}</h6>
+                                <small class="text-muted">Seats: {{ van.seats }}, </small>
+                                <small class="text-muted">Max Cargo: {{ van.cargoCapacity }} Liters</small>
+                            </div>
+                            <span class="badge bg-info rounded-pill">{{ van.category }}</span>
+                        </div>
+                        } @empty {
+                        @if (!isLoading() && searchQuery()) {
+                        <div class="text-center py-4 text-muted">
+                            <p class="mb-0">No vans matching "{{ searchQuery() }}" found.</p>
+                        </div>
+                        }
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

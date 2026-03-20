@@ -1,3 +1,5 @@
+export * from './van-vehicle.model';
+
 export interface NewUser {
   user_id: number;
   username: string;

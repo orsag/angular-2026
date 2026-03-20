@@ -28,6 +28,7 @@ import {
   withRequestsMadeViaParent,
 } from '@angular/common/http';
 import { PhotoGallery } from './features/rxjs/photo-gallery/photo-gallery';
+import { VanSearch } from './features/rxjs/van-search/van-search';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -51,6 +52,7 @@ export const routes: Routes = [
   { path: 'user-details', component: UserDetails },
   { path: 'infinite-scroll', component: InfiniteScroll },
   { path: 'photo-gallery', component: PhotoGallery },
+  { path: 'van-search', component: VanSearch },
   {
     path: 'admin',
     component: AdminPage,

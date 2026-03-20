@@ -122,6 +122,12 @@ export class Sidebar {
       route: 'photo-gallery',
       title: 'Photo-gallery',
     },
+    {
+      id: crypto.randomUUID(),
+      category: C.RXJS,
+      route: 'van-search',
+      title: 'Van search',
+    },
   ]);
 
   // Derived signal: Groups items by category, excluding CORE
