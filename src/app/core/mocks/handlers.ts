@@ -1,7 +1,8 @@
 import { http, HttpResponse, delay } from 'msw';
+import { VanVehicle } from '@types';
 
 // 1. Separate the data for better maintainability
-export const MOCK_VANS = [
+export let MOCK_VANS = [
   {
     id: 1,
     brand: 'Mitsubishi',
@@ -94,10 +95,45 @@ export const MOCK_VANS = [
 ];
 
 export const handlers = [
-  // NEW ENDPOINT: Get everything
+  // --- GET ALL ---
   http.get('/api/vans/all', async () => {
-    await delay(600); // Realistic feel
+    await delay(300);
     return HttpResponse.json(MOCK_VANS);
+  }),
+
+  // --- POST (Create) ---
+  http.post('/api/vans', async ({ request }) => {
+    const newVan = (await request.json()) as VanVehicle;
+    newVan.id = Math.floor(Math.random() * 10000); // Simulate DB ID generation
+
+    MOCK_VANS.push(newVan); // "Save" to our mock DB
+
+    return HttpResponse.json(newVan, { status: 201 });
+  }),
+
+  // --- DELETE ---
+  http.delete('/api/vans/:id', async ({ params }) => {
+    const { id } = params;
+
+    // Remove from our array
+    MOCK_VANS = MOCK_VANS.filter((v) => v.id !== Number(id));
+
+    // Return 204 No Content (Standard for successful delete)
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  // --- PATCH (Partial Update) ---
+  http.patch('/api/vans/:id', async ({ params, request }) => {
+    const { id } = params;
+    const updates = (await request.json()) as Partial<VanVehicle>;
+
+    const index = MOCK_VANS.findIndex((v) => v.id === Number(id));
+    if (index > -1) {
+      MOCK_VANS[index] = { ...MOCK_VANS[index], ...updates };
+      return HttpResponse.json(MOCK_VANS[index]);
+    }
+
+    return new HttpResponse(null, { status: 404 });
   }),
 
   // EXISTING ENDPOINT: Search/Filter

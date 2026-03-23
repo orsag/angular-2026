@@ -1,49 +1,43 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, computed, inject, signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, tap, switchMap, of } from 'rxjs';
+import { Component, inject, signal, computed } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { VanService } from '@services/van-service';
 import { VanVehicle } from '@types';
+import { VanDetailModal } from './van-detail-modal';
 
 type SortKey = 'cargoCapacity' | 'category' | 'seats' | 'brand';
 
 @Component({
   selector: 'app-van-search',
-  imports: [],
+  standalone: true,
+  providers: [VanService, VanDetailModal],
   templateUrl: './van-search.html',
-  styleUrl: './van-search.scss',
+  imports: [
+    VanDetailModal
+  ]
 })
 export class VanSearch {
-  private http = inject(HttpClient);
-  // State Signals
-  searchQuery = signal<string>('');
-  // The Sort Control
-  sortAscending = signal<boolean>(true);
+  private vanService = inject(VanService);
 
+  // Lokálny stav
+  searchQuery = signal<string>('');
+  rawVans = signal<VanVehicle[]>([]);
+  selectedVan = signal<VanVehicle | null>(null);
+
+  // Exponujeme loading/error zo služby
+  isLoading = this.vanService.isLoading;
+  errorMessage = this.vanService.errorMessage;
+
+  // UI Signály pre sort
+  sortAscending = signal<boolean>(true);
   sortBy = signal<SortKey>('cargoCapacity');
 
-  isLoading = signal(false);
-  errorMessage = signal<string | null>(null);
+  constructor() {
+    // Prepojíme stream zo služby s naším rawVans signálom
+    this.vanService
+      .getVans(toObservable(this.searchQuery))
+      .subscribe((vans) => this.rawVans.set(vans));
+  }
 
-  // RxJS Logic Bridge
-  // We use switchMap to toggle between "All" and "Search"
-  private vanStream$ = toObservable(this.searchQuery).pipe(
-    debounceTime(400),
-    distinctUntilChanged(),
-    tap(() => {
-      this.isLoading.set(true);
-      this.errorMessage.set(null);
-    }),
-    switchMap((query) => {
-      // If query is empty, call the 'All' endpoint, otherwise 'Search'
-      return query.trim() === '' ? this.getAllVans() : this.searchVans(query);
-    }),
-    tap(() => this.isLoading.set(false)),
-  );
-
-  // 3. Raw Data Signal (renamed to 'rawVans' for clarity)
-  private rawVans = toSignal(this.vanStream$, { initialValue: [] as VanVehicle[] });
-
-  // This is now "multi-purpose"
   sortedVans = computed(() => {
     const list = [...this.rawVans()];
     const key = this.sortBy();
@@ -52,20 +46,24 @@ export class VanSearch {
     return list.sort((a, b) => {
       const valA = a[key];
       const valB = b[key];
-
-      // Handle string vs number comparison
       if (typeof valA === 'string' && typeof valB === 'string') {
         return valA.localeCompare(valB) * direction;
       }
-
       return ((valA as number) - (valB as number)) * direction;
     });
   });
 
-  // Helper to update sort criteria from the <select>
-  onSortChange(event: Event) {
-    const value = (event.target as HTMLSelectElement).value as SortKey;
-    this.sortBy.set(value);
+  deleteVan(id: number) {
+    this.vanService.deleteVan(id).subscribe({
+      next: () => {
+        // Možnosť A: Len lokálne odobrať (rýchlejšie UI)
+        this.rawVans.update((vans) => vans.filter((v) => v.id !== id));
+
+        // Možnosť B: Vynútiť si úplne čerstvé dáta zo servera
+        // this.vanService.refresh();
+      },
+      error: () => this.vanService.errorMessage.set('Delete failed'),
+    });
   }
 
   updateSearch(event: Event) {
@@ -73,12 +71,16 @@ export class VanSearch {
     this.searchQuery.set(val);
   }
 
-  private searchVans(query: string) {
-    if (!query.trim()) return of([]);
-    return this.http.get<VanVehicle[]>(`/api/vans?q=${query}`);
+  onSortChange(event: Event) {
+    const value = (event.target as HTMLSelectElement).value as SortKey;
+    this.sortBy.set(value);
   }
 
-  private getAllVans() {
-    return this.http.get<VanVehicle[]>(`/api/vans/all`);
+  selectVan(van: VanVehicle) {
+    this.selectedVan.set(van);
+  }
+
+  closeModal() {
+    this.selectedVan.set(null);
   }
 }
