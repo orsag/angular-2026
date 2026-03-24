@@ -3,6 +3,9 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { VanService } from '@services/van-service';
 import { VanVehicle } from '@types';
 import { VanDetailModal } from './van-detail-modal';
+import { NgComponentOutlet } from '@angular/common';
+import { StandardVanItem, LuxuryVanItem } from './van-item';
+import {Subject, takeUntil} from 'rxjs';
 
 type SortKey = 'cargoCapacity' | 'category' | 'seats' | 'brand';
 
@@ -11,9 +14,7 @@ type SortKey = 'cargoCapacity' | 'category' | 'seats' | 'brand';
   standalone: true,
   providers: [VanService, VanDetailModal],
   templateUrl: './van-search.html',
-  imports: [
-    VanDetailModal
-  ]
+  imports: [VanDetailModal, NgComponentOutlet],
 })
 export class VanSearch {
   private vanService = inject(VanService);
@@ -27,6 +28,8 @@ export class VanSearch {
   isLoading = this.vanService.isLoading;
   errorMessage = this.vanService.errorMessage;
 
+  private destroy$ = new Subject<void>();
+
   // UI Signály pre sort
   sortAscending = signal<boolean>(true);
   sortBy = signal<SortKey>('cargoCapacity');
@@ -35,6 +38,7 @@ export class VanSearch {
     // Prepojíme stream zo služby s naším rawVans signálom
     this.vanService
       .getVans(toObservable(this.searchQuery))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((vans) => this.rawVans.set(vans));
   }
 
@@ -51,6 +55,17 @@ export class VanSearch {
       }
       return ((valA as number) - (valB as number)) * direction;
     });
+  });
+
+  // computed signál, ktorý pripraví dáta aj s informáciou o komponente
+  displayVans = computed(() => {
+    return this.sortedVans().map((van) => ({
+      van,
+      // Rozhodovacia logika pre výber komponentu
+      component: van.category.includes('Luxury') ? LuxuryVanItem : StandardVanItem,
+      // Pripravíme inputy pre ngComponentOutlet
+      inputs: { data: van },
+    }));
   });
 
   deleteVan(id: number) {
@@ -82,5 +97,10 @@ export class VanSearch {
 
   closeModal() {
     this.selectedVan.set(null);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

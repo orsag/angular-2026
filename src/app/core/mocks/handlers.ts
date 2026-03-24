@@ -32,7 +32,7 @@ export let MOCK_VANS = [
     brand: 'Toyota',
     model: 'Proace City Verso L2',
     cargoCapacity: 1050,
-    category: 'Van',
+    category: 'Luxury Van',
     seats: 7,
   },
   {
@@ -48,7 +48,7 @@ export let MOCK_VANS = [
     brand: 'Mercedes-Benz',
     model: 'V-Class',
     cargoCapacity: 1030,
-    category: 'Premium MPV',
+    category: 'Luxury MPV',
     seats: 8,
   },
   { id: 7, brand: 'Ford', model: 'Tourneo Custom', cargoCapacity: 1200, category: 'Van', seats: 9 },
@@ -57,7 +57,7 @@ export let MOCK_VANS = [
     brand: 'Hyundai',
     model: 'Staria',
     cargoCapacity: 831,
-    category: 'Premium MPV',
+    category: 'Luxury MPV',
     seats: 7,
   },
   {
@@ -89,7 +89,7 @@ export let MOCK_VANS = [
     brand: 'Toyota',
     model: 'Alphard',
     cargoCapacity: 610,
-    category: 'Premium MPV',
+    category: 'Luxury MPV',
     seats: 7,
   },
 ];

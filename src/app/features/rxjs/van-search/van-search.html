@@ -55,23 +55,19 @@
                     </div>
 
                     <div class="list-group list-group-flush mt-3">
-                        @for (van of sortedVans(); track van.id) {
-                        <div (click)="selectVan(van)" style="cursor: pointer;"
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
-                            <div>
-                                <h6 class="mb-0 fw-bold">{{ van.brand }} {{ van.model }}</h6>
-                                <small class="text-muted">Seats: {{ van.seats }}, </small>
-                                <small class="text-muted">Max Cargo: {{ van.cargoCapacity }} Liters</small>
-                            </div>
+                        @for (item of displayVans(); track item.van.id) {
+                        <div (click)="selectVan(item.van)" style="cursor: pointer;"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 w-100">
 
-                            <div class="d-flex align-items-center gap-3">
-                                <span class="badge bg-info rounded-pill">{{ van.category }}</span>
+                          <div class="w-100 d-flex">
+                            <ng-container *ngComponentOutlet="item.component; inputs: item.inputs"></ng-container>
+                          </div>
 
-                                <button class="btn btn-outline-danger btn-sm border-0"
-                                    (click)="deleteVan(van.id); $event.stopPropagation()" title="Delete Vehicle">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
+
+                            <button class="btn btn-outline-danger btn-sm border-0"
+                                (click)="deleteVan(item.van.id); $event.stopPropagation()" title="Delete Vehicle">
+                                <i class="bi bi-trash"></i>
+                            </button>
                         </div>
                         } @empty {
                         @if (!isLoading() && searchQuery()) {
@@ -87,9 +83,9 @@
 
         </div>
 
-      @if (selectedVan(); as van) {
+        @if (selectedVan(); as van) {
         <app-van-detail-modal [value]="van" (close)="closeModal()">
         </app-van-detail-modal>
-      }
+        }
     </div>
 </div>
