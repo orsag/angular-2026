@@ -56,7 +56,7 @@
 
                     <div class="list-group list-group-flush mt-3">
                         @for (item of displayVans(); track item.van.id) {
-                        <div (click)="selectVan(item.van)" style="cursor: pointer;"
+                        <a [routerLink]="['/van-search', item.van.id]"
                             class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 w-100">
 
                           <div class="w-100 d-flex">
@@ -68,7 +68,7 @@
                                 (click)="deleteVan(item.van.id); $event.stopPropagation()" title="Delete Vehicle">
                                 <i class="bi bi-trash"></i>
                             </button>
-                        </div>
+                        </a>
                         } @empty {
                         @if (!isLoading() && searchQuery()) {
                         <div class="text-center py-4 text-muted">

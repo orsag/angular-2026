@@ -1,45 +1,44 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
+import {takeUntilDestroyed, toObservable} from '@angular/core/rxjs-interop';
 import { VanService } from '@services/van-service';
 import { VanVehicle } from '@types';
 import { VanDetailModal } from './van-detail-modal';
 import { NgComponentOutlet } from '@angular/common';
 import { StandardVanItem, LuxuryVanItem } from './van-item';
-import {Subject, takeUntil} from 'rxjs';
+import { Subscription} from 'rxjs';
+import {RouterModule} from '@angular/router';
 
 type SortKey = 'cargoCapacity' | 'category' | 'seats' | 'brand';
 
 @Component({
   selector: 'app-van-search',
   standalone: true,
-  providers: [VanService, VanDetailModal],
+  providers: [VanDetailModal],
   templateUrl: './van-search.html',
-  imports: [VanDetailModal, NgComponentOutlet],
+  imports: [VanDetailModal, RouterModule, NgComponentOutlet],
 })
 export class VanSearch {
   private vanService = inject(VanService);
 
   // Lokálny stav
   searchQuery = signal<string>('');
-  rawVans = signal<VanVehicle[]>([]);
+  rawVans = this.vanService.vansData;
   selectedVan = signal<VanVehicle | null>(null);
 
   // Exponujeme loading/error zo služby
   isLoading = this.vanService.isLoading;
   errorMessage = this.vanService.errorMessage;
-
-  private destroy$ = new Subject<void>();
+  private sub?: Subscription;
 
   // UI Signály pre sort
   sortAscending = signal<boolean>(true);
   sortBy = signal<SortKey>('cargoCapacity');
 
   constructor() {
-    // Prepojíme stream zo služby s naším rawVans signálom
-    this.vanService
+    this.sub = this.vanService
       .getVans(toObservable(this.searchQuery))
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((vans) => this.rawVans.set(vans));
+      .pipe(takeUntilDestroyed())
+      .subscribe();
   }
 
   sortedVans = computed(() => {
@@ -70,14 +69,7 @@ export class VanSearch {
 
   deleteVan(id: number) {
     this.vanService.deleteVan(id).subscribe({
-      next: () => {
-        // Možnosť A: Len lokálne odobrať (rýchlejšie UI)
-        this.rawVans.update((vans) => vans.filter((v) => v.id !== id));
-
-        // Možnosť B: Vynútiť si úplne čerstvé dáta zo servera
-        // this.vanService.refresh();
-      },
-      error: () => this.vanService.errorMessage.set('Delete failed'),
+      error: (err) => console.error('Chyba pri mazaní v komponente', err)
     });
   }
 
@@ -93,6 +85,7 @@ export class VanSearch {
 
   selectVan(van: VanVehicle) {
     this.selectedVan.set(van);
+    // this.router.navigate(['/van', van.id]);
   }
 
   closeModal() {
@@ -100,7 +93,6 @@ export class VanSearch {
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.sub?.unsubscribe();
   }
 }

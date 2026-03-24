@@ -101,6 +101,20 @@ export const handlers = [
     return HttpResponse.json(MOCK_VANS);
   }),
 
+  // --- GET ID ---
+  http.get('/api/vans/:id', async ({ params }) => {
+    const { id } = params;
+    await delay(300);
+
+    const van = MOCK_VANS.find(v => v.id === Number(id));
+
+    if (!van) {
+      return new HttpResponse(null, { status: 404, statusText: 'Van not found' });
+    }
+
+    return HttpResponse.json(van);
+  }),
+
   // --- POST (Create) ---
   http.post('/api/vans', async ({ request }) => {
     const newVan = (await request.json()) as VanVehicle;

@@ -20,6 +20,8 @@ import { AdminPage } from './features/core/admin-page/admin-page';
 import { Dashboard } from './features/experimental/dashboard/dashboard';
 import { UserDetails } from './features/experimental/user-details/user-details';
 import { InfiniteScroll } from './features/experimental/infinite-scroll/infinite-scroll';
+import { PhotoGallery } from './features/rxjs/photo-gallery/photo-gallery';
+import { VanSearch } from './features/rxjs/van-search/van-search';
 // ========================
 import { authInterceptor } from './core/interceptors/auth-interceptor';
 import {
@@ -27,8 +29,7 @@ import {
   withInterceptors,
   withRequestsMadeViaParent,
 } from '@angular/common/http';
-import { PhotoGallery } from './features/rxjs/photo-gallery/photo-gallery';
-import { VanSearch } from './features/rxjs/van-search/van-search';
+import {vanDetailResolver} from './shared/resolvers/van-detail-resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -59,6 +60,13 @@ export const routes: Routes = [
     providers: [
       provideHttpClient(withInterceptors([authInterceptor]), withRequestsMadeViaParent()),
     ],
+  },
+  {
+    path: 'van-search/:id',
+    loadComponent: () => import('./features/rxjs/van-search/van-detail').then(m => m.VanDetailComponent),
+    resolve: {
+      van: vanDetailResolver // Dáta budú dostupné pod kľúčom 'van'
+    }
   },
   { path: '**', component: PageNotFound },
 ];

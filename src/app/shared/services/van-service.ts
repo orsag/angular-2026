@@ -6,7 +6,7 @@ import {
   tap,
   debounceTime,
   distinctUntilChanged,
-  Observable,
+  Observable, catchError,
 } from 'rxjs';
 import { VanVehicle } from '@types';
 
@@ -15,6 +15,9 @@ import { VanVehicle } from '@types';
 })
 export class VanService {
   private http = inject(HttpClient);
+
+  private vansSignal = signal<VanVehicle[]>([]);
+  readonly vansData = this.vansSignal.asReadonly();
 
   // Subject na manuálne spustenie refreshu (napr. po delete)
   private refreshTrigger$ = new BehaviorSubject<void>(undefined);
@@ -36,7 +39,10 @@ export class VanService {
             this.errorMessage.set(null);
           }),
           switchMap(() => this.fetchData(query)),
-          tap(() => this.isLoading.set(false)),
+          tap((vans) => {
+            this.isLoading.set(false);
+            this.vansSignal.set(vans);
+          }),
         ),
       ),
     );
@@ -54,6 +60,33 @@ export class VanService {
   }
 
   deleteVan(id: number): Observable<void> {
-    return this.http.delete<void>(`/api/vans/${id}`);
+    return this.http.delete<void>(`/api/vans/${id}`).pipe(
+      tap(() => {
+        // Aktualizujeme signál odobratím vymazanej dodávky podľa ID
+        this.vansSignal.update((allVans) => allVans.filter((v) => v.id !== id));
+
+        // Voliteľne: Ak máš nastavený errorMessage, môžeš ho tu vyčistiť
+        this.errorMessage.set(null);
+      }),
+      catchError((err) => {
+        this.errorMessage.set('Deletion failed');
+        throw err;
+      })
+    );
+  }
+
+  getVanById(id: number): Observable<VanVehicle> {
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    return this.http.get<VanVehicle>(`/api/vans/${id}`).pipe(
+      tap(() => this.isLoading.set(false)),
+      catchError((err) => {
+        this.isLoading.set(false);
+        this.errorMessage.set('Nepodarilo sa načítať detail vozidla');
+        // V reálnej appke by si tu mohol hodiť error ďalej alebo vrátiť empty
+        throw err;
+      })
+    );
   }
 }
