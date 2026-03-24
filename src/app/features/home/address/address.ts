@@ -24,7 +24,9 @@ const getEmptyForm = (): IAddress => ({
   styleUrl: './address.scss',
 })
 export class Address implements OnInit {
+  @ViewChild('streetInput') streetInput!: ElementRef<HTMLInputElement>;
   @ViewChild('confirmModal') modalElement!: ElementRef;
+
   private themeService = inject(ThemeService);
   addressModel = signal<IAddress>(getEmptyForm());
 
@@ -33,6 +35,11 @@ export class Address implements OnInit {
     if (previousAddress) {
       this.addressModel.set(JSON.parse(previousAddress) as IAddress);
     }
+  }
+
+  ngAfterViewInit() {
+    // Focus na street po načítaní view
+    this.focusStreet();
   }
 
   addressForm = form(this.addressModel, (schemaPath) => {
@@ -49,7 +56,13 @@ export class Address implements OnInit {
     if (this.addressForm().valid()) {
       const modal = new bootstrap.Modal(this.modalElement.nativeElement);
       modal.show();
+    } else {
+      this.addressForm().markAsTouched(); // Zobrazíme chyby, ak nie je validný
     }
+  }
+
+  private focusStreet() {
+    setTimeout(() => this.streetInput.nativeElement.focus(), 0);
   }
 
   processSave() {
@@ -57,11 +70,14 @@ export class Address implements OnInit {
       const data = this.addressModel();
       const stringData = JSON.stringify(data);
       this.themeService.setLocalStorage('address', stringData);
+      console.log('Address saved to storage');
     }
   }
 
   onReset() {
     this.addressModel.set(getEmptyForm());
+    this.addressForm().reset();
+    this.focusStreet();
   }
 
   onAutofill() {
