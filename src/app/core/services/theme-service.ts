@@ -1,4 +1,4 @@
-import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID, DOCUMENT, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class ThemeService {
 
   theme = signal<'light' | 'dark'>('light');
 
-  constructor() {
+  constructor(@Inject(DOCUMENT) private document: Document) {
     this.initializeTheme();
   }
 
@@ -34,6 +34,21 @@ export class ThemeService {
     if (!this.isBrowser) return;
     const next = this.theme() === 'light' ? 'dark' : 'light';
     this.theme.set(next);
+
+    // let themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
+    // if (themeLink) {
+    //   // Map your app theme to a PrimeNG theme file
+    //   const themeName = next === 'dark' ? 'lara-dark-blue' : 'lara-light-blue';
+    //   themeLink.href = `${themeName}.css`;
+    // }
+    const body = this.document.body;
+    const html = this.document.documentElement;
+    body.classList.remove('dark-mode');
+    if (next === 'dark') {
+      html.classList.add('dark-mode');
+    } else {
+      html.classList.remove('dark-mode');
+    }
 
     document.documentElement.setAttribute('data-bs-theme', next);
     this.setLocalStorage('theme', next);

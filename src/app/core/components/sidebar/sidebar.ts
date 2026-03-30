@@ -128,6 +128,12 @@ export class Sidebar {
       route: 'van-search',
       title: 'Van search',
     },
+    {
+      id: crypto.randomUUID(),
+      category: C.RXJS,
+      route: 'van-table',
+      title: 'Van table',
+    },
   ]);
 
   // Derived signal: Groups items by category, excluding CORE

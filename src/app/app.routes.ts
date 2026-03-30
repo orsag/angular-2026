@@ -29,7 +29,8 @@ import {
   withInterceptors,
   withRequestsMadeViaParent,
 } from '@angular/common/http';
-import {vanDetailResolver} from './shared/resolvers/van-detail-resolver';
+import { vanDetailResolver } from './shared/resolvers/van-detail-resolver';
+import { VanTable } from './primeng/van-table/van-table';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -54,6 +55,7 @@ export const routes: Routes = [
   { path: 'infinite-scroll', component: InfiniteScroll },
   { path: 'photo-gallery', component: PhotoGallery },
   { path: 'van-search', component: VanSearch },
+  { path: 'van-table', component: VanTable },
   {
     path: 'admin',
     component: AdminPage,
@@ -63,10 +65,11 @@ export const routes: Routes = [
   },
   {
     path: 'van-search/:id',
-    loadComponent: () => import('./features/rxjs/van-search/van-detail').then(m => m.VanDetailComponent),
+    loadComponent: () =>
+      import('./features/rxjs/van-search/van-detail').then((m) => m.VanDetailComponent),
     resolve: {
-      van: vanDetailResolver // Dáta budú dostupné pod kľúčom 'van'
-    }
+      van: vanDetailResolver, // Dáta budú dostupné pod kľúčom 'van'
+    },
   },
   { path: '**', component: PageNotFound },
 ];
