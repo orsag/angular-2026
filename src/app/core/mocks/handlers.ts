@@ -1,104 +1,25 @@
 import { http, HttpResponse, delay } from 'msw';
 import { VanVehicle } from '@types';
+import { MOCK_VANS as INITIAL_VANS } from './mock-data';
+import { User } from '@types';
 
-// 1. Separate the data for better maintainability
-export let MOCK_VANS = [
-  {
-    id: 1,
-    brand: 'Mitsubishi',
-    model: 'Delica D:5',
-    cargoCapacity: 800,
-    category: '4WD MPV',
-    seats: 7,
-  },
-  {
-    id: 2,
-    brand: 'Renault',
-    model: 'Trafic Combi',
-    cargoCapacity: 1000,
-    category: 'Van',
-    seats: 9,
-  },
-  {
-    id: 3,
-    brand: 'Dacia',
-    model: 'Jogger',
-    cargoCapacity: 708,
-    category: 'Wagon',
-    seats: 7,
-  },
-  {
-    id: 4,
-    brand: 'Toyota',
-    model: 'Proace City Verso L2',
-    cargoCapacity: 1050,
-    category: 'Luxury Van',
-    seats: 7,
-  },
-  {
-    id: 5,
-    brand: 'Volkswagen',
-    model: 'Multivan T7',
-    cargoCapacity: 763,
-    category: 'Premium MPV',
-    seats: 7,
-  },
-  {
-    id: 6,
-    brand: 'Mercedes-Benz',
-    model: 'V-Class',
-    cargoCapacity: 1030,
-    category: 'Luxury MPV',
-    seats: 8,
-  },
-  { id: 7, brand: 'Ford', model: 'Tourneo Custom', cargoCapacity: 1200, category: 'Van', seats: 9 },
-  {
-    id: 8,
-    brand: 'Hyundai',
-    model: 'Staria',
-    cargoCapacity: 831,
-    category: 'Luxury MPV',
-    seats: 7,
-  },
-  {
-    id: 9,
-    brand: 'Citroen',
-    model: 'Berlingo XL',
-    cargoCapacity: 1050,
-    category: 'Van',
-    seats: 7,
-  },
-  {
-    id: 10,
-    brand: 'Nissan',
-    model: 'Serena e-Power',
-    cargoCapacity: 601,
-    category: 'JDM MPV',
-    seats: 7,
-  },
-  {
-    id: 11,
-    brand: 'Honda',
-    model: 'Stepwgn Spada',
-    cargoCapacity: 750,
-    category: 'JDM MPV',
-    seats: 8,
-  },
-  {
-    id: 12,
-    brand: 'Toyota',
-    model: 'Alphard',
-    cargoCapacity: 610,
-    category: 'Luxury MPV',
-    seats: 7,
-  },
-];
+let activeVans = [...INITIAL_VANS];
+// Your sample mocked user
+const MOCK_USER: User = {
+  id: crypto.randomUUID(),
+  email: 'dev@example.com',
+  name: 'Your Name',
+  imageUrl: 'assets/images/avatar.png',
+};
+
+// Simulated "Session Storage" in memory
+let currentUser: User | null = null;
 
 export const handlers = [
   // --- GET ALL ---
   http.get('/api/vans/all', async () => {
     await delay(300);
-    return HttpResponse.json(MOCK_VANS);
+    return HttpResponse.json(activeVans);
   }),
 
   // --- GET ID ---
@@ -106,7 +27,7 @@ export const handlers = [
     const { id } = params;
     await delay(300);
 
-    const van = MOCK_VANS.find(v => v.id === Number(id));
+    const van = activeVans.find((v) => v.id === Number(id));
 
     if (!van) {
       return new HttpResponse(null, { status: 404, statusText: 'Van not found' });
@@ -120,7 +41,7 @@ export const handlers = [
     const newVan = (await request.json()) as VanVehicle;
     newVan.id = Math.floor(Math.random() * 10000); // Simulate DB ID generation
 
-    MOCK_VANS.push(newVan); // "Save" to our mock DB
+    activeVans.push(newVan); // "Save" to our mock DB
 
     return HttpResponse.json(newVan, { status: 201 });
   }),
@@ -130,7 +51,7 @@ export const handlers = [
     const { id } = params;
 
     // Remove from our array
-    MOCK_VANS = MOCK_VANS.filter((v) => v.id !== Number(id));
+    activeVans = activeVans.filter((v) => v.id !== Number(id));
 
     // Return 204 No Content (Standard for successful delete)
     return new HttpResponse(null, { status: 204 });
@@ -141,10 +62,10 @@ export const handlers = [
     const { id } = params;
     const updates = (await request.json()) as Partial<VanVehicle>;
 
-    const index = MOCK_VANS.findIndex((v) => v.id === Number(id));
+    const index = activeVans.findIndex((v) => v.id === Number(id));
     if (index > -1) {
-      MOCK_VANS[index] = { ...MOCK_VANS[index], ...updates };
-      return HttpResponse.json(MOCK_VANS[index]);
+      activeVans[index] = { ...activeVans[index], ...updates };
+      return HttpResponse.json(activeVans[index]);
     }
 
     return new HttpResponse(null, { status: 404 });
@@ -159,7 +80,7 @@ export const handlers = [
     await delay(500);
 
     // 3. Logic to filter by brand OR model
-    const filteredVans = MOCK_VANS.filter(
+    const filteredVans = activeVans.filter(
       (van) =>
         van.brand.toLowerCase().includes(searchTerm) ||
         van.model.toLowerCase().includes(searchTerm),
@@ -167,5 +88,33 @@ export const handlers = [
 
     // 4. Return the response
     return HttpResponse.json(filteredVans);
+  }),
+
+  // LOGIN: Simulates a successful login
+  http.post('/api/user/login', async ({ request }) => {
+    const credentials = (await request.json()) as any;
+    // console.log('Incoming Credentials:', credentials);
+
+    // Simplified logic: accept any login for development
+    if (credentials.email && credentials.pass) {
+      currentUser = MOCK_USER;
+      return HttpResponse.json(currentUser, { status: 200 });
+    }
+
+    return new HttpResponse(null, { status: 401 });
+  }),
+
+  // LOGOUT: Clears the session
+  http.post('/api/user/logout', () => {
+    currentUser = null;
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  // GET CURRENT USER: Useful for app initialization
+  http.get('/api/user/me', () => {
+    if (!currentUser) {
+      return new HttpResponse(null, { status: 401 });
+    }
+    return HttpResponse.json(currentUser);
   }),
 ];

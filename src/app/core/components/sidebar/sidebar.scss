@@ -152,3 +152,19 @@
   max-width: 0;
   opacity: 0;
 }
+
+.auth-controls .btn {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.auth-controls .bi {
+  font-size: 1.1rem;
+}
+
+/* If you have a very narrow sidebar, hide text and only show icons */
+@media (max-width: 250px) {
+  .menu-text {
+    display: none;
+  }
+}

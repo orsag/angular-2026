@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ThemeService } from 'src/app/core/services/theme-service';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '@coreservices/auth-service';
+import { ThemeService } from '@coreservices/theme-service';
 
 interface IMenuItem {
   id: string;
@@ -26,7 +27,9 @@ enum C {
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
-  themeService = inject(ThemeService);
+  private router = inject(Router);
+  public authService = inject(AuthService);
+  public themeService = inject(ThemeService);
   theme = this.themeService.theme;
   openCategory = signal<string | null>(null);
   lastOpenCategory = signal<string | null>(null);
@@ -67,6 +70,11 @@ export class Sidebar {
 
   isCoreCategory(name: string) {
     return name === C.CORE;
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   // readonly navLinkClass = 'link-body-emphasis d-inline-flex text-decoration-none rounded';

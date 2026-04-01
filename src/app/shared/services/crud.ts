@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Iuser } from '@types';
+import { User } from '@types';
 
 @Injectable({
   providedIn: 'root',
@@ -11,22 +11,22 @@ export class Crud {
   constructor(private http: HttpClient) {}
 
   getData() {
-    return this.http.get<Iuser[]>(this.base_url);
+    return this.http.get<User[]>(this.base_url);
   }
 
   // rxResource = rxResource({
   //   loader : () => this.http.get(this.base_url)
   // })
 
-  postData(data: Iuser) {
+  postData(data: User) {
     return this.http.post(this.base_url, data);
   }
 
   getDataById(id: number) {
-    return this.http.get<Iuser>(`${this.base_url}/${id}`);
+    return this.http.get<User>(`${this.base_url}/${id}`);
   }
 
-  putDataById(id: number, data: Iuser) {
+  putDataById(id: number, data: User) {
     return this.http.put(`${this.base_url}/${id}`, data);
   }
 

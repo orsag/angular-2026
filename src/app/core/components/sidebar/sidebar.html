@@ -1,14 +1,25 @@
 <div class="sidebar d-flex flex-column p-3" [class.collapsed]="isCollapsed()" style="width: 280px; height: 100vh;">
 
-  <div class="theme-toggle mb-3 d-flex align-items-center">
-    <button class="btn btn-sm btn-outline-secondary d-flex align-items-center theme-toggle-btn w-100"
-      [title]="theme() === 'light' ? 'Dark mode' : 'Light mode'" (click)="themeService.toggleTheme()">
-      <i class="bi theme-icon" [ngClass]="theme() === 'light' ? 'bi-moon' : 'bi-sun'"></i>
+  <div class="auth-controls d-flex flex-column gap-2 mb-3">
 
-      <span class="menu-text">
-        {{ theme() === 'light' ? 'Dark mode' : 'Light mode' }}
+    <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center w-100 py-2"
+      [title]="theme() === 'light' ? 'Dark' : 'Light'" (click)="themeService.toggleTheme()">
+      <i class="bi" [ngClass]="theme() === 'light' ? 'bi-moon' : 'bi-sun'"></i>
+      @if (!isCollapsed()) {
+      <span class="ms-2 small fw-medium text-truncate">
+        {{ theme() === 'light' ? 'Dark' : 'Light' }}
       </span>
+      }
     </button>
+
+    <button class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center w-100 py-2"
+      title="Logout" (click)="onLogout()">
+      <i class="bi bi-box-arrow-right"></i>
+      @if (!isCollapsed()) {
+      <span class="ms-2 small fw-medium text-truncate">Logout</span>
+      }
+    </button>
+
   </div>
 
 
@@ -40,7 +51,7 @@
 
 
     <li class="mb-1">
-      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 w-100 text-start"
+      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 w-100 text-start category-btn"
         (click)="!isCollapsed() && toggleCategory(categoryName)" [class.collapsed]="!isOpen">
 
         <i class="bi bi-chevron-right me-2 transition-icon"

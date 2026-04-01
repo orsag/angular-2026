@@ -1,5 +1,12 @@
 export * from './van-vehicle.model';
 
+export type User = {
+  id: string;
+  email: string;
+  name: string;
+  imageUrl: string;
+};
+
 export interface NewUser {
   user_id: number;
   username: string;
@@ -56,13 +63,6 @@ export interface Employee {
   phone: string;
   website: string;
   company: Company;
-}
-
-export interface Iuser {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
 }
 
 export interface InfiniteScrollConfig {

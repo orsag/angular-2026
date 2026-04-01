@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {NonNullableFormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { NonNullableFormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Crud as CrudService } from '@services/crud';
 import { ReusableComponent } from '@components/reusable-component/reusable-component';
-import {Iuser} from '@types';
+import { User } from '@types';
 
 @Component({
   selector: 'app-add-user',
@@ -39,22 +39,4 @@ export class AddUser {
   onCancel() {
     this.router.navigateByUrl('crud');
   }
-
-  /* LEGACY  */
-  // apiData: Iuser[] = [];
-  //
-  // constructor(
-  //   private crud: CrudService,
-  //   private router: Router,
-  // ) {}
-  //
-  // ngOnInit(): void {
-  //   this.getAllData();
-  // }
-  //
-  // getAllData() {
-  //   this.crud.getData().subscribe((res) => {
-  //     this.apiData = res;
-  //   });
-  // }
 }

@@ -22,6 +22,7 @@ import { UserDetails } from './features/experimental/user-details/user-details';
 import { InfiniteScroll } from './features/experimental/infinite-scroll/infinite-scroll';
 import { PhotoGallery } from './features/rxjs/photo-gallery/photo-gallery';
 import { VanSearch } from './features/rxjs/van-search/van-search';
+import { VanTable } from './primeng/van-table/van-table';
 // ========================
 import { authInterceptor } from './core/interceptors/auth-interceptor';
 import {
@@ -30,46 +31,61 @@ import {
   withRequestsMadeViaParent,
 } from '@angular/common/http';
 import { vanDetailResolver } from './shared/resolvers/van-detail-resolver';
-import { VanTable } from './primeng/van-table/van-table';
+
+import { authGuard, guestGuard } from './core/guards/auth-guard';
+// ========================
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'profile', pathMatch: 'full' },
-  { path: 'profile', component: Profile },
-  { path: 'data-binding', component: DataBinding },
-  { path: 'structural', component: Structural },
-  { path: 'attribute', component: AttributeDirectives },
-  { path: 'built-in-pipes', component: BuiltPipes },
-  { path: 'tdf', component: TemplateDrivenForm },
-  { path: 'rf', component: ReactiveForm },
-  { path: 'add-user', component: AddUser },
-  { path: 'resource-api', component: ResourceApi },
-  { path: 'storage', component: Storage },
-  { path: 'signal-forms', component: SignalForms },
-  { path: 'employees', component: Employees },
-  { path: 'address', component: Address },
-  { path: 'expense-tracker', component: ExpenseTracker },
-  { path: 'vehicles', component: Vehicles },
-  { path: 'user-search', component: UserSearch },
-  { path: 'dashboard', component: Dashboard },
-  { path: 'user-details', component: UserDetails },
-  { path: 'infinite-scroll', component: InfiniteScroll },
-  { path: 'photo-gallery', component: PhotoGallery },
-  { path: 'van-search', component: VanSearch },
-  { path: 'van-table', component: VanTable },
+  {
+    path: 'login',
+    loadComponent: () => import('./features/core/login/login').then((m) => m.LoginComponent),
+    canActivate: [guestGuard], // If logged in, redirects to /admin
+  },
   {
     path: 'admin',
     component: AdminPage,
-    providers: [
-      provideHttpClient(withInterceptors([authInterceptor]), withRequestsMadeViaParent()),
-    ],
+    canActivate: [authGuard],
   },
   {
-    path: 'van-search/:id',
-    loadComponent: () =>
-      import('./features/rxjs/van-search/van-detail').then((m) => m.VanDetailComponent),
-    resolve: {
-      van: vanDetailResolver, // Dáta budú dostupné pod kľúčom 'van'
-    },
+    path: '',
+    canActivate: [authGuard], // The "Gatekeeper": Redirects to /login if not authenticated
+    providers: [
+      // Your existing scoped HttpClient setup
+      provideHttpClient(withInterceptors([authInterceptor]), withRequestsMadeViaParent()),
+    ],
+    children: [
+      { path: 'profile', component: Profile },
+      { path: 'data-binding', component: DataBinding },
+      { path: 'structural', component: Structural },
+      { path: 'attribute', component: AttributeDirectives },
+      { path: 'built-in-pipes', component: BuiltPipes },
+      { path: 'tdf', component: TemplateDrivenForm },
+      { path: 'rf', component: ReactiveForm },
+      { path: 'add-user', component: AddUser },
+      { path: 'resource-api', component: ResourceApi },
+      { path: 'storage', component: Storage },
+      { path: 'signal-forms', component: SignalForms },
+      { path: 'employees', component: Employees },
+      { path: 'address', component: Address },
+      { path: 'expense-tracker', component: ExpenseTracker },
+      { path: 'vehicles', component: Vehicles },
+      { path: 'user-search', component: UserSearch },
+      { path: 'dashboard', component: Dashboard },
+      { path: 'user-details', component: UserDetails },
+      { path: 'infinite-scroll', component: InfiniteScroll },
+      { path: 'photo-gallery', component: PhotoGallery },
+      { path: 'van-search', component: VanSearch },
+      { path: 'van-table', component: VanTable },
+      {
+        path: 'van-search/:id',
+        loadComponent: () =>
+          import('./features/rxjs/van-search/van-detail').then((m) => m.VanDetailComponent),
+        resolve: {
+          van: vanDetailResolver, // Dáta budú dostupné pod kľúčom 'van'
+        },
+      },
+    ],
   },
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
   { path: '**', component: PageNotFound },
 ];
