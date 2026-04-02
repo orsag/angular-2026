@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "angular-19-tutorial": {
+    "angular-2026": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -38,11 +38,9 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "outputMode": "static",
+            "prerender": false,
+            "ssr": false
           },
           "configurations": {
             "production": {
@@ -50,7 +48,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -72,10 +70,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-19-tutorial:build:production"
+              "buildTarget": "angular-2026:build:production"
             },
             "development": {
-              "buildTarget": "angular-19-tutorial:build:development"
+              "buildTarget": "angular-2026:build:development"
             }
           },
           "defaultConfiguration": "development"

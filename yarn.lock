@@ -296,13 +296,6 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/ssr@^21.2.3":
-  version "21.2.3"
-  resolved "https://registry.yarnpkg.com/@angular/ssr/-/ssr-21.2.3.tgz#0b7f414464ec808d31b5ff3f3cd3e8e5f757603d"
-  integrity sha512-vyBIZMoEA1QOghE0Q8Co1gVyxKaaG1eGUigOjnksRLrkOU9uB1ARaCBFFmnIMtFFMbrvVzhsl6Ojzm4RjKkKdA==
-  dependencies:
-    tslib "^2.3.0"
-
 "@asamuzakjp/css-color@^4.1.1":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@asamuzakjp/css-color/-/css-color-4.1.1.tgz#e5c662f488367dc74194609179fe6621f2586114"
