@@ -11,7 +11,7 @@ Since your project is named `angular-2026`, here are the commands to build and l
 Run this in your project root (where the `Dockerfile` and `nginx.conf` are). We'll tag it as `angular-2026`:
 
 ```bash
-docker build -t angular-2026 .
+docker build -t angular-van-app .
 ```
 
 - **What's happening?** Docker is using Node 24 to compile your code, then moving the production files into a tiny Nginx server.
@@ -23,7 +23,7 @@ docker build -t angular-2026 .
 Now, let's start the container and map it to a port on your Mac so you can see it:
 
 ```bash
-docker run -d -p 8080:80 --name van-fleet-2026 angular-2026
+docker run -d -p 8080:80 --name van-fleet-2026 angular-van-app
 ```
 
 - `-d`: Runs in "Detached" mode (in the background).

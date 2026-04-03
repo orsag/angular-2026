@@ -94,22 +94,18 @@ export const handlers = [
   http.post('/api/user/login', async ({ request }) => {
     const credentials = (await request.json()) as any;
     // console.log('Incoming Credentials:', credentials);
-
     // Simplified logic: accept any login for development
     if (credentials.email && credentials.pass) {
       currentUser = MOCK_USER;
       return HttpResponse.json(currentUser, { status: 200 });
     }
-
     return new HttpResponse(null, { status: 401 });
   }),
-
   // LOGOUT: Clears the session
   http.post('/api/user/logout', () => {
     currentUser = null;
     return new HttpResponse(null, { status: 204 });
   }),
-
   // GET CURRENT USER: Useful for app initialization
   http.get('/api/user/me', () => {
     if (!currentUser) {
